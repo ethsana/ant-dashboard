@@ -60,7 +60,7 @@ export default function VersionCheck({
       <CodeBlockTabs
         showLineNumbers
         linux={`bee version\nwget https://github.com/ethersphere/bee/releases/download/${latestVersion}/bee_${latestVersion}_amd64.deb\nsudo dpkg -i bee_${latestVersion}_amd64.deb`}
-        mac={`bee version\nbrew tap ethersphere/tap\nbrew install swarm-bee\nbrew services start swarm-bee`}
+        mac={`bee version\nbrew tap ethersphere/tap\nbrew install sana-bee\nbrew services start sana-bee`}
       />
       {version}
     </>

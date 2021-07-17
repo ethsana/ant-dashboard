@@ -93,7 +93,7 @@ export default function WithdrawModal({
           />
           {amountError && (
             <FormHelperText error>
-              Please provide valid BZZ amount (max 16 decimals). Error: {amountError.message}
+              Please provide valid SANA amount (max 16 decimals). Error: {amountError.message}
             </FormHelperText>
           )}
         </DialogContent>

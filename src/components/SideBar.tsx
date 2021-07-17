@@ -6,7 +6,7 @@ import { ListItemText, ListItemIcon, ListItem, Divider, List, Drawer, Link as MU
 import { OpenInNewSharp } from '@material-ui/icons'
 import { Activity, FileText, DollarSign, Share2, Settings, Layers } from 'react-feather'
 
-import SwarmLogoOrange from '../assets/swarm-logo-orange.svg'
+import SanaLogo from '../assets/sana-logo.png'
 import { Health } from '@ethersphere/bee-js'
 
 const drawerWidth = 240
@@ -59,9 +59,15 @@ const useStyles = makeStyles((theme: Theme) =>
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+    linkLogo: {
+      display: 'inline-block',
+    },
     logo: {
       padding: 1,
       marginTop: 20,
+      width: 88,
+      height: 'auto',
+      // maxHeight: 14,
     },
     drawer: {
       width: drawerWidth,
@@ -71,10 +77,10 @@ const useStyles = makeStyles((theme: Theme) =>
       width: drawerWidth,
     },
     activeSideBar: {
-      color: '#dd7700',
+      color: '#4086e0',
     },
     activeSideBarItem: {
-      borderLeft: '4px solid #dd7700',
+      borderLeft: '4px solid #4086e0',
       backgroundColor: 'inherit !important',
     },
     toolbar: theme.mixins.toolbar,
@@ -101,13 +107,8 @@ export default function SideBar(props: Props): ReactElement {
         anchor="left"
       >
         <div className={classes.toolbar} style={{ textAlign: 'left', marginLeft: 20 }}>
-          <Link to="/">
-            <img
-              alt="swarm"
-              className={classes.logo}
-              src={props.themeMode === 'light' ? SwarmLogoOrange : SwarmLogoOrange}
-              style={{ maxHeight: '30px', alignItems: 'center' }}
-            />
+          <Link to="/" className={classes.linkLogo}>
+            <img alt="sana" className={classes.logo} src={SanaLogo} style={{ alignItems: 'center' }} />
           </Link>
         </div>
         <List>

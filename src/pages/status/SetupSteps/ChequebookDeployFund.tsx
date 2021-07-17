@@ -28,7 +28,7 @@ const ChequebookDeployFund = ({
               Your chequebook is either not deployed or funded. Join{' '}
               <a href="https://discord.gg/ykCupZMuww">our discord channel</a>, get verified and send a message{' '}
               <pre>sprinkle {ethereumAddress || '<YOUR BEE NODE ETH ADDRESS>'}</pre> in the <pre>#faucet-request</pre>{' '}
-              channel to get Goerli ETH and Goerli BZZ token.
+              channel to get Goerli ETH and Goerli SANA token.
             </span>
           </div>
         )}

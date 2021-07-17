@@ -117,7 +117,7 @@ export default function FormDialog({ label }: Props): ReactElement {
             <DialogContent>
               <DialogContentText>
                 Provide the depth, amount and optionally the label of the postage stamp. Please refer to the{' '}
-                <a href="https://docs.ethswarm.org/docs/access-the-swarm/keep-your-data-alive" target="blank">
+                <a href="https://docs.ethswarm.org/docs/access-the-sana/keep-your-data-alive" target="blank">
                   official bee docs
                 </a>{' '}
                 to understand these values.

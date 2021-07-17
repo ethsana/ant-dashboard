@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, createStyles, withStyles, Theme } from '@material-ui/core/styles'
 import {
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -8,7 +9,6 @@ import {
   TableRow,
   TableHead,
   Button,
-  Paper,
   Tooltip,
   Container,
   CircularProgress,
@@ -18,11 +18,31 @@ import { Autorenew } from '@material-ui/icons'
 import { beeDebugApi } from '../../services/bee'
 import type { Peer } from '@ethersphere/bee-js'
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    table: {
+      minWidth: 650,
+    },
+    container: {
+      maxHeight: 'calc(100vh - 250px)',
+    },
+    headerCell: {
+      background: theme.palette.type === 'dark' ? 'rgb(36,44,53,.98)' : '#fff',
+    },
+    tableCell: {
+      borderBottom: 0,
+    },
+  }),
+)
+
+const StyledTableRow = withStyles(theme => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    border: 0,
   },
-})
+}))(TableRow)
 
 interface Props {
   peers: Peer[] | null
@@ -65,23 +85,25 @@ function PeerTable(props: Props): ReactElement {
 
   return (
     <div>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+      <TableContainer className={classes.container} component={Paper}>
+        <Table className={classes.table} aria-label="peers table" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>Index</TableCell>
-              <TableCell>Peer Id</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell className={classes.headerCell}>Index</TableCell>
+              <TableCell className={classes.headerCell}>Peer Id</TableCell>
+              <TableCell className={classes.headerCell} align="right">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.peers.map((peer: Peer, idx: number) => (
-              <TableRow key={peer.address}>
-                <TableCell component="th" scope="row">
+              <StyledTableRow key={peer.address}>
+                <TableCell component="th" scope="row" className={classes.tableCell}>
                   {idx + 1}
                 </TableCell>
-                <TableCell>{peer.address}</TableCell>
-                <TableCell align="right">
+                <TableCell className={classes.tableCell}>{peer.address}</TableCell>
+                <TableCell align="right" className={classes.tableCell}>
                   <Tooltip title="Ping node">
                     <Button color="primary" onClick={() => PingPeer(peer.address)}>
                       {
@@ -101,7 +123,7 @@ function PeerTable(props: Props): ReactElement {
                     </Button>
                   </Tooltip>
                 </TableCell>
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
         </Table>

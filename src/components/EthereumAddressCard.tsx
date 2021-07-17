@@ -13,8 +13,10 @@ const useStyles = makeStyles(() =>
     root: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-around',
+      justifyContent: 'space-between',
       flexWrap: 'wrap',
+      paddingLeft: 8,
+      paddingRight: 8,
     },
     details: {
       display: 'flex',

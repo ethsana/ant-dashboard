@@ -72,20 +72,20 @@ function AccountCard({ totalreceived, totalsent, chequebookBalance, isLoading }:
               <Typography component="h2" variant="h6" color="primary" gutterBottom>
                 Total Balance
               </Typography>
-              <Typography variant="h5">{chequebookBalance?.totalBalance.toFixedDecimal()} BZZ</Typography>
+              <Typography variant="h5">{chequebookBalance?.totalBalance.toFixedDecimal()} SANA</Typography>
             </div>
             <div>
               <Typography component="h2" variant="h6" color="primary" gutterBottom>
                 Available Uncommitted Balance
               </Typography>
-              <Typography variant="h5">{chequebookBalance?.availableBalance.toFixedDecimal()} BZZ</Typography>
+              <Typography variant="h5">{chequebookBalance?.availableBalance.toFixedDecimal()} SANA</Typography>
             </div>
             <div>
               <Typography component="h2" variant="h6" color="primary" gutterBottom>
                 Total Sent / Received
               </Typography>
               <Typography variant="h5">
-                {totalsent.toFixedDecimal()} / {totalreceived.toFixedDecimal()} BZZ
+                {totalsent.toFixedDecimal()} / {totalreceived.toFixedDecimal()} SANA
               </Typography>
             </div>
           </CardContent>

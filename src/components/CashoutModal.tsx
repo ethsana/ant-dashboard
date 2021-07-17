@@ -77,7 +77,7 @@ export default function DepositModal({ peerId, uncashedAmount }: Props): ReactEl
             )}
             {!loadingCashout && (
               <span>
-                Are you sure you want to cashout <strong>{uncashedAmount} BZZ</strong> from Peer{' '}
+                Are you sure you want to cashout <strong>{uncashedAmount} SANA</strong> from Peer{' '}
                 <strong>{peerId}</strong>?
               </span>
             )}

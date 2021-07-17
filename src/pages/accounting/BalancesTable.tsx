@@ -1,21 +1,53 @@
 import type { ReactElement } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Table, TableBody, TableCell, TableContainer, TableRow, TableHead, Paper } from '@material-ui/core'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  TableHead,
+  Paper,
+  createStyles,
+  Theme,
+} from '@material-ui/core'
 
 import ClipboardCopy from '../../components/ClipboardCopy'
 import CashoutModal from '../../components/CashoutModal'
 import PeerDetailDrawer from '../../components/PeerDetail'
 import { Accounting } from '../../hooks/accounting'
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-  values: {
-    textAlign: 'right',
-    fontFamily: 'monospace, monospace',
-  },
-})
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 650,
+//   },
+//   values: {
+//     textAlign: 'right',
+//     fontFamily: 'monospace, monospace',
+//   },
+//   container: {
+//     maxHeight: 'calc(100vh - 310px)',
+//   },
+// })
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    table: {
+      minWidth: 650,
+    },
+    values: {
+      textAlign: 'right',
+      fontFamily: 'monospace, monospace',
+    },
+    container: {
+      maxHeight: 'calc(100vh - 310px)',
+    },
+    headerCell: {
+      background: theme.palette.type === 'dark' ? 'rgb(36,44,53,.98)' : '#fff',
+    },
+  }),
+)
+
 interface Props {
   isLoadingUncashed: boolean
   accounting: Accounting[] | null
@@ -26,16 +58,24 @@ function BalancesTable({ accounting, isLoadingUncashed }: Props): ReactElement |
   const classes = useStyles()
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="Balances Table">
+    <TableContainer component={Paper} className={classes.container}>
+      <Table className={classes.table} stickyHeader size="small" aria-label="Balances Table">
         <TableHead>
           <TableRow>
-            <TableCell>Peer</TableCell>
-            <TableCell align="right">Outstanding Balance</TableCell>
-            <TableCell align="right">Settlements Sent / Received</TableCell>
-            <TableCell align="right">Total</TableCell>
-            <TableCell align="right">Uncashed Amount</TableCell>
-            <TableCell />
+            <TableCell className={classes.headerCell}>Peer</TableCell>
+            <TableCell className={classes.headerCell} align="right">
+              Outstanding Balance
+            </TableCell>
+            <TableCell className={classes.headerCell} align="right">
+              Settlements Sent / Received
+            </TableCell>
+            <TableCell className={classes.headerCell} align="right">
+              Total
+            </TableCell>
+            <TableCell className={classes.headerCell} align="right">
+              Uncashed Amount
+            </TableCell>
+            <TableCell className={classes.headerCell} />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -57,10 +97,10 @@ function BalancesTable({ accounting, isLoadingUncashed }: Props): ReactElement |
                 >
                   {balance.toFixedDecimal()}
                 </span>{' '}
-                BZZ
+                SANA
               </TableCell>
               <TableCell className={classes.values}>
-                -{sent.toFixedDecimal()} / {received.toFixedDecimal()} BZZ
+                -{sent.toFixedDecimal()} / {received.toFixedDecimal()} SANA
               </TableCell>
               <TableCell className={classes.values}>
                 <span
@@ -70,12 +110,12 @@ function BalancesTable({ accounting, isLoadingUncashed }: Props): ReactElement |
                 >
                   {total.toFixedDecimal()}
                 </span>{' '}
-                BZZ
+                SANA
               </TableCell>
               <TableCell className={classes.values}>
                 {isLoadingUncashed && 'loading...'}
                 {!isLoadingUncashed && (
-                  <>{uncashedAmount.toBigNumber.isGreaterThan('0') ? uncashedAmount.toFixedDecimal() : '0'} BZZ</>
+                  <>{uncashedAmount.toBigNumber.isGreaterThan('0') ? uncashedAmount.toFixedDecimal() : '0'} SANA</>
                 )}
               </TableCell>
               <TableCell className={classes.values}>

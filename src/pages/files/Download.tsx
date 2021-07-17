@@ -36,7 +36,7 @@ export default function Files(): ReactElement {
     setReferenceInput(e.target.value)
 
     if (Utils.Hex.isHexString(e.target.value, 64) || Utils.Hex.isHexString(e.target.value, 128)) setReferenceError(null)
-    else setReferenceError(new Error('Incorrect format of swarm hash'))
+    else setReferenceError(new Error('Incorrect format of sana hash'))
   }
 
   return (
@@ -44,8 +44,8 @@ export default function Files(): ReactElement {
       <Paper className={classes.root}>
         <InputBase
           className={classes.input}
-          placeholder="Enter swarm reference e.g. 0773a91efd6547c754fc1d95fb1c62c7d1b47f959c2caa685dfec8736da95c1c"
-          inputProps={{ 'aria-label': 'retrieve file from swarm' }}
+          placeholder="Enter sana reference e.g. 0773a91efd6547c754fc1d95fb1c62c7d1b47f959c2caa685dfec8736da95c1c"
+          inputProps={{ 'aria-label': 'retrieve file from sana' }}
           value={referenceInput}
           onChange={handleReferenceChange}
         />

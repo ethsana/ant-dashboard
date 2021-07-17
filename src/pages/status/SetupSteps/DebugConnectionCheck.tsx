@@ -61,13 +61,13 @@ export default function NodeConnectionCheck({ isLoading, isOk }: Props): ReactEl
                   <CodeBlockTabs
                     showLineNumbers
                     linux={`sudo systemctl start bee`}
-                    mac={`brew services start swarm-bee`}
+                    mac={`brew services start sana-bee`}
                   />
                   <li>Run the commands to validate your node is running and see the log output.</li>
                   <CodeBlockTabs
                     showLineNumbers
                     linux={`sudo systemctl status bee \njournalctl --lines=100 --follow --unit bee`}
-                    mac={`brew services list \ntail -f /usr/local/var/log/swarm-bee/bee.log`}
+                    mac={`brew services list \ntail -f /usr/local/var/log/sana-bee/bee.log`}
                   />
                   <li>
                     Lastly, check your nodes configuration settings to validate the debug API is enabled and the Cross
@@ -80,7 +80,7 @@ export default function NodeConnectionCheck({ isLoading, isOk }: Props): ReactEl
                   <CodeBlockTabs
                     showLineNumbers
                     linux={`sudo vi /etc/bee/bee.yaml\nsudo systemctl restart bee`}
-                    mac={`sudo vi /usr/local/etc/swarm-bee/bee.yaml \nbrew services restart swarm-bee`}
+                    mac={`sudo vi /usr/local/etc/sana-bee/bee.yaml \nbrew services restart sana-bee`}
                   />
                 </ol>
               </Typography>

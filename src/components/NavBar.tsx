@@ -7,13 +7,20 @@ import { Sun, Moon } from 'react-feather'
 
 const drawerWidth = 240
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     appBar: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
+      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+      backgroundColor: theme.palette.type === 'light' ? '#fff' : '#161b22',
+      boxShadow:
+        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
     },
-    network: {},
+    network: {
+      color: '#fff',
+      backgroundColor: '#32c48d',
+    },
   }),
 )
 interface Props {

@@ -63,7 +63,7 @@ export const lightTheme = createMuiTheme({
     },
     primary: {
       light: orange.A200,
-      main: '#dd7700',
+      main: '#4086e0',
       dark: orange[800],
     },
     secondary: {
@@ -84,7 +84,7 @@ export const darkTheme = createMuiTheme({
     },
     primary: {
       light: orange.A200,
-      main: '#dd7700',
+      main: '#4086e0',
       dark: orange[800],
     },
     secondary: {

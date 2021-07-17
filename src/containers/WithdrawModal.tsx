@@ -9,7 +9,7 @@ export default function WithdrawModal(): ReactElement {
     <WDModal
       successMessage="Successful withdrawl."
       errorMessage="Error with withdrawing."
-      dialogMessage="Specify the amount of BZZ you would like to withdraw from your node."
+      dialogMessage="Specify the amount of SANA you would like to withdraw from your node."
       label="Withdraw"
       min={new BigNumber(0)}
       action={beeDebugApi.chequebook.withdraw}
