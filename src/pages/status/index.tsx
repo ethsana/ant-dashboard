@@ -5,6 +5,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import NodeSetupWorkflow from './NodeSetupWorkflow'
 import StatusCard from './StatusCard'
 import EthereumAddressCard from '../../components/EthereumAddressCard'
+import IconCard from './IcomeCard'
 import {
   useStatusEthereumConnection,
   useStatusNodeVersion,
@@ -44,6 +45,7 @@ export default function Status(): ReactElement {
       </Container>
     )
   }
+  const isOk = checks.every(c => c.isOk)
 
   return (
     <div className={classes.root}>
@@ -55,6 +57,7 @@ export default function Status(): ReactElement {
         latestUrl={nodeVersion.latestUrl}
         nodeAddresses={ethereumConnection.nodeAddresses}
       />
+      <IconCard />
       {ethereumConnection.nodeAddresses && chequebook.chequebookAddress && (
         <EthereumAddressCard
           nodeAddresses={ethereumConnection.nodeAddresses}

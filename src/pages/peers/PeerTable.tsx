@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: 'calc(100vh - 250px)',
     },
     headerCell: {
-      background: theme.palette.type === 'dark' ? 'rgb(36,44,53,.98)' : '#fff',
+      background: theme.palette.type === 'dark' ? '#424242' : '#fff',
     },
     tableCell: {
       borderBottom: 0,

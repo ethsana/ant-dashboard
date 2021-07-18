@@ -1,21 +1,19 @@
-import { useState, ReactElement } from 'react'
+import { ReactElement, useCallback } from 'react'
 
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Toolbar, Chip, IconButton } from '@material-ui/core/'
 
 import { Sun, Moon } from 'react-feather'
-
-const drawerWidth = 240
+import SanaLogoLight from '../assets/sana-logo-light.png'
+import SanaLogoDark from '../assets/sana-logo-dark.png'
+import useTheme from '../hooks/useTheme'
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-      backgroundColor: theme.palette.type === 'light' ? '#fff' : '#161b22',
-      boxShadow:
-        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+    logo: {
+      width: 200,
+      flexShrink: 0,
+      flexGrow: 0,
     },
     network: {
       color: '#fff',
@@ -23,46 +21,32 @@ const useStyles = makeStyles(theme =>
     },
   }),
 )
-interface Props {
-  themeMode: string
-}
 
-export default function SideBar(props: Props): ReactElement {
-  const [darkMode, toggleDarkMode] = useState(false)
-
-  const switchTheme = () => {
-    const theme = localStorage.getItem('theme')
-
-    if (theme) {
-      localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
-    } else {
-      localStorage.setItem('theme', darkMode ? 'dark' : 'light')
-    }
-
-    toggleDarkMode(!darkMode)
-    window.location.reload()
-  }
-
+export default function SideBar(): ReactElement {
   const classes = useStyles()
+  const { theme: themeMode } = useTheme()
+
+  // const clickTheme = useCallback(() => {
+  //   if (updater && typeof updater === 'function') {
+  //     updater()
+  //   }
+  // }, [updater])
 
   return (
-    <div>
-      <div style={{ display: 'fixed' }} className={classes.appBar}>
-        <Toolbar style={{ display: 'flex' }}>
-          <Chip style={{ marginLeft: '7px' }} size="small" label="Goerli" className={classes.network} />
-          <div style={{ width: '100%' }}>
-            <div style={{ float: 'right' }}>
-              <IconButton style={{ marginRight: '10px' }} aria-label="dark-mode" onClick={() => switchTheme()}>
-                {props.themeMode === 'dark' ? <Moon /> : <Sun />}
-              </IconButton>
-              {/* <Chip 
-              label="Connect Wallet"
-              color="primary"
-              /> */}
-            </div>
-          </div>
-        </Toolbar>
+    <Toolbar style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+      <div className={classes.logo}>
+        <img src={themeMode === 'light' ? SanaLogoLight : SanaLogoDark} alt="sana logo" width="50" />
       </div>
-    </div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Chip style={{ marginLeft: '7px' }} size="small" label="Goerli" className={classes.network} />
+        {/* <div style={{ width: '100%' }}>
+          <div style={{ float: 'right' }}>
+            <IconButton style={{ marginRight: '10px' }} aria-label="dark-mode" onClick={clickTheme}>
+              {themeMode === 'dark' ? <Moon /> : <Sun />}
+            </IconButton>
+          </div>
+        </div> */}
+      </div>
+    </Toolbar>
   )
 }

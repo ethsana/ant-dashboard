@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState, createContext } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
 
@@ -9,44 +9,34 @@ import { SnackbarProvider } from 'notistack'
 import BaseRouter from './routes/routes'
 import { lightTheme, darkTheme } from './theme'
 import { Provider as StampsProvider } from './providers/Stamps'
+import useTheme from './hooks/useTheme'
+
+export const Context = createContext<{ theme: string; updater?: () => void }>({ theme: 'dark' })
 
 const App = (): ReactElement => {
-  const [themeMode, toggleThemeMode] = useState('light')
+  const [theme, setTheme] = useState('dark')
 
-  useEffect(() => {
-    const theme = localStorage.getItem('theme')
+  // const switchTheme = () => {
+  //   const _nextTheme = theme === 'light' ? 'dark' : 'light'
 
-    if (theme) {
-      toggleThemeMode(String(localStorage.getItem('theme')))
-    } else if (window?.matchMedia('(prefers-color-scheme: dark)')?.matches) {
-      toggleThemeMode('dark')
-    }
-
-    window?.matchMedia('(prefers-color-scheme: dark)')?.addEventListener('change', e => {
-      toggleThemeMode(e?.matches ? 'dark' : 'light')
-    })
-
-    return () =>
-      window?.matchMedia('(prefers-color-scheme: dark)')?.removeEventListener('change', e => {
-        toggleThemeMode(e?.matches ? 'dark' : 'light')
-      })
-  }, [])
+  //   localStorage['theme'] = _nextTheme.toString()
+  //   setTheme(_nextTheme)
+  //   // window.location.reload()
+  // }
 
   return (
-    <div className="App">
-      <ThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
-        <StampsProvider>
-          <SnackbarProvider>
-            <>
-              <CssBaseline />
-              <Router>
-                <BaseRouter />
-              </Router>
-            </>
-          </SnackbarProvider>
-        </StampsProvider>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <StampsProvider>
+        <SnackbarProvider>
+          <Context.Provider value={{ theme }}>
+            <CssBaseline />
+            <Router>
+              <BaseRouter />
+            </Router>
+          </Context.Provider>
+        </SnackbarProvider>
+      </StampsProvider>
+    </ThemeProvider>
   )
 }
 

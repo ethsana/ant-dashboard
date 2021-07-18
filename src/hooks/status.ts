@@ -8,9 +8,12 @@ import {
   useApiNodeTopology,
   useDebugApiHealth,
   useLatestBeeRelease,
+  useEarnsInfo,
 } from './apiHooks'
 import semver from 'semver'
 import { engines } from '../../package.json'
+import BigNumber from 'bignumber.js'
+import { Token } from '../models/Token'
 
 export interface StatusChequebookHook extends StatusHookCommon {
   chequebookBalance: ChequebookBalance | null
@@ -24,22 +27,24 @@ export const useStatusNodeVersion = (): StatusNodeVersionHook => {
   const latestVersion = semver.coerce(latestBeeRelease?.name)?.version
   const latestUserVersion = semver.coerce(nodeHealth?.version)?.version
 
-  const isLatestBeeVersion = Boolean(
-    latestVersion &&
-      latestUserVersion &&
-      semver.satisfies(latestVersion, latestUserVersion, {
-        includePrerelease: true,
-      }),
-  )
+  // const isLatestBeeVersion = Boolean(
+  //   latestVersion &&
+  //     latestUserVersion &&
+  //     semver.satisfies(latestVersion, latestUserVersion, {
+  //       includePrerelease: true,
+  //     }),
+  // )
+  const isLatestBeeVersion = true
 
   return {
     isLoading: isLoadingNodeHealth || isLoadingLatestBeeRelease,
-    isOk: Boolean(
-      nodeHealth &&
-        semver.satisfies(nodeHealth.version, engines.bee, {
-          includePrerelease: true,
-        }),
-    ),
+    // isOk: Boolean(
+    //   nodeHealth &&
+    //     semver.satisfies(nodeHealth.version, engines.bee, {
+    //       includePrerelease: true,
+    //     }),
+    // ),
+    isOk: true,
     userVersion: nodeHealth?.version,
     latestVersion,
     latestUrl: latestBeeRelease?.html_url || 'https://github.com/ethersphere/bee/releases/latest',
@@ -97,5 +102,43 @@ export const useStatusChequebook = (): StatusChequebookHook => {
       chequebookBalance?.totalBalance.toBigNumber.isGreaterThan(0),
     chequebookBalance,
     chequebookAddress,
+  }
+}
+
+export interface Earns {
+  reward: Token
+  pending: Token
+  isWork: boolean
+  totalEarns: Token
+  isLoadingEarnsInfo: boolean
+  isLockup: boolean
+}
+
+export const useEarns = (): Earns => {
+  const { isLoadingEarnsInfo, error, earnsInfo } = useEarnsInfo()
+
+  if (isLoadingEarnsInfo || error || !earnsInfo) {
+    return {
+      reward: new Token('0'),
+      pending: new Token('0'),
+      totalEarns: new Token('0'),
+      isWork: false,
+      isLoadingEarnsInfo,
+      isLockup: false,
+    }
+  }
+
+  const reward = new Token(earnsInfo.reward)
+  const pending = new Token(earnsInfo.pending)
+  const totalEarns = new Token(reward.toBigNumber.plus(pending.toBigNumber))
+  const isLockup = Number(earnsInfo.expire) - new Date().getTime() <= 0
+
+  return {
+    reward,
+    pending,
+    totalEarns,
+    isWork: Boolean(earnsInfo.work),
+    isLoadingEarnsInfo,
+    isLockup,
   }
 }

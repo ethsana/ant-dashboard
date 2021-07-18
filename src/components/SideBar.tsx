@@ -2,12 +2,26 @@ import { ReactElement } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
-import { ListItemText, ListItemIcon, ListItem, Divider, List, Drawer, Link as MUILink } from '@material-ui/core'
+import {
+  ListItemText,
+  ListItemIcon,
+  ListItem,
+  Divider,
+  List,
+  Toolbar,
+  Drawer,
+  Link as MUILink,
+} from '@material-ui/core'
 import { OpenInNewSharp } from '@material-ui/icons'
-import { Activity, FileText, DollarSign, Share2, Settings, Layers } from 'react-feather'
+import { Activity, FileText, DollarSign, Share2, Settings, Layers, Folder } from 'react-feather'
 
-import SanaLogo from '../assets/sana-logo.png'
 import { Health } from '@ethersphere/bee-js'
+import PublishSharpIcon from '@material-ui/icons/PublishSharp'
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
+import DeviceHubIcon from '@material-ui/icons/DeviceHub'
+import SettingsIcon from '@material-ui/icons/Settings'
+import BallotIcon from '@material-ui/icons/Ballot'
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile'
 
 const drawerWidth = 240
 
@@ -22,52 +36,40 @@ const navBarItems = [
     label: 'Files',
     id: 'files',
     path: '/files/',
-    icon: FileText,
+    icon: InsertDriveFileIcon,
   },
   {
     label: 'Stamps',
     id: 'stamps',
     path: '/stamps/',
-    icon: Layers,
+    icon: BallotIcon,
   },
   {
     label: 'Accounting',
     id: 'accounting',
     path: '/accounting/',
-    icon: DollarSign,
+    icon: AccountBalanceIcon,
   },
   {
     label: 'Peers',
     id: 'peers',
     path: '/peers/',
-    icon: Share2,
+    icon: DeviceHubIcon,
   },
   {
     label: 'Settings',
     id: 'settings',
     path: '/settings/',
-    icon: Settings,
+    icon: SettingsIcon,
   },
 ]
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+  const isLight = theme.palette.type === 'light'
+
+  return createStyles({
     root: {
       display: 'flex',
-    },
-    appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    linkLogo: {
-      display: 'inline-block',
-    },
-    logo: {
-      padding: 1,
-      marginTop: 20,
-      width: 88,
-      height: 'auto',
-      // maxHeight: 14,
     },
     drawer: {
       width: drawerWidth,
@@ -75,17 +77,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: 'none',
     },
-    activeSideBar: {
-      color: '#4086e0',
+    drawerContainer: {
+      overflow: 'auto',
     },
+    activeSideBar: {},
     activeSideBarItem: {
-      borderLeft: '4px solid #4086e0',
-      backgroundColor: 'inherit !important',
+      // color: '#000',
+      backgroundColor: `rgba(255, 255, 255, ${isLight ? '0.4' : '0.16'})`,
     },
     toolbar: theme.mixins.toolbar,
-  }),
-)
+  })
+})
 
 interface Props extends RouteComponentProps {
   themeMode: string
@@ -104,41 +109,42 @@ export default function SideBar(props: Props): ReactElement {
         classes={{
           paper: classes.drawerPaper,
         }}
-        anchor="left"
       >
-        <div className={classes.toolbar} style={{ textAlign: 'left', marginLeft: 20 }}>
-          <Link to="/" className={classes.linkLogo}>
-            <img alt="sana" className={classes.logo} src={SanaLogo} style={{ alignItems: 'center' }} />
-          </Link>
-        </div>
-        <List>
-          {navBarItems.map(item => (
-            <Link to={item.path} key={item.id} style={{ color: 'inherit', textDecoration: 'none' }}>
-              <ListItem
-                button
-                selected={props.location.pathname === item.path}
-                className={props.location.pathname === item.path ? classes.activeSideBarItem : ''}
-              >
-                <ListItemIcon className={props.location.pathname === item.path ? classes.activeSideBar : ''}>
-                  <item.icon style={{ height: '20px' }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.label}
-                  className={props.location.pathname === item.path ? classes.activeSideBar : ''}
-                />
+        <div className={classes.drawerContainer}>
+          <Toolbar />
+          <List>
+            {navBarItems.map(item => (
+              <Link to={item.path} key={item.id} style={{ color: 'inherit', textDecoration: 'none' }}>
+                <ListItem
+                  button
+                  selected={props.location.pathname === item.path}
+                  className={props.location.pathname === item.path ? classes.activeSideBarItem : ''}
+                >
+                  <ListItemIcon>
+                    <item.icon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.label}
+                    className={props.location.pathname === item.path ? classes.activeSideBar : ''}
+                  />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            <MUILink
+              href={process.env.REACT_APP_BEE_DOCS_HOST}
+              target="_blank"
+              style={{ textDecoration: 'none', color: '#fff' }}
+            >
+              <ListItem button>
+                <ListItemText primary={'Docs'} />
+                <OpenInNewSharp fontSize="small" />
               </ListItem>
-            </Link>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          <MUILink href={process.env.REACT_APP_BEE_DOCS_HOST} target="_blank" style={{ textDecoration: 'none' }}>
-            <ListItem button>
-              <ListItemText primary={'Docs'} />
-              <OpenInNewSharp fontSize="small" />
-            </ListItem>
-          </MUILink>
-        </List>
+            </MUILink>
+          </List>
+        </div>
         <div style={{ position: 'fixed', bottom: 0, width: 'inherit', padding: '10px' }}>
           <ListItem>
             <div style={{ marginRight: '30px' }}>

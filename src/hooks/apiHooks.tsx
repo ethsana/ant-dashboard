@@ -58,6 +58,7 @@ export const useDebugApiHealth = (): DebugHealthHook => {
     beeDebugApi.status
       .nodeHealth()
       .then(res => {
+        // setNodeHealth({...res, version:'0.0.2'})
         setNodeHealth(res)
       })
       .catch(error => {
@@ -428,4 +429,41 @@ export const useLatestBeeRelease = (): LatestBeeReleaseHook => {
   }, [])
 
   return { latestBeeRelease, isLoadingLatestBeeRelease, error }
+}
+
+export interface EarningsInformation {
+  work: boolean
+  reward: string
+  pending: string
+  expire: string
+  code?: number | string | null
+  message?: string | undefined | null
+}
+
+export const useEarnsInfo = () => {
+  const [isLoadingEarnsInfo, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+  const [earnsInfo, setEarnsInfo] = useState<EarningsInformation | null>({
+    work: false,
+    reward: '0',
+    pending: '0',
+    expire: '0',
+  })
+
+  useEffect(() => {
+    setLoading(true)
+    axios
+      .get(`${process.env.REACT_APP_BEE_DEBUG_HOST}/mine/status`)
+      .then(res => {
+        setEarnsInfo(res?.data)
+      })
+      .catch((error: Error) => {
+        setError(error)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
+
+  return { isLoadingEarnsInfo, error, earnsInfo }
 }

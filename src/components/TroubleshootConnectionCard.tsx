@@ -7,7 +7,7 @@ import { Card, CardContent, Typography } from '@material-ui/core/'
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    marginTop: '20px',
+    // marginTop: '20px',
   },
   title: {
     textAlign: 'center',

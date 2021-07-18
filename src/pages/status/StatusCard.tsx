@@ -38,6 +38,7 @@ function StatusCard({
   latestUrl,
 }: Props): ReactElement | null {
   const classes = useStyles()
+  console.log('instisOk', isOk)
 
   const [underlayAddressesVisible, setUnderlayAddresessVisible] = useState<boolean>(false)
 
