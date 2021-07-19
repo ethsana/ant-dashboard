@@ -62,7 +62,7 @@ export default function NodeSetupWorkflow({
       component: <DebugConnectionCheck {...debugApiConnection} />,
     },
     {
-      label: 'Running latest Bee version',
+      label: 'Running latest Ant version',
       isOk: nodeVersion.isOk,
       isLoading: nodeVersion.isLoading,
       component: <VersionCheck {...nodeVersion} />,

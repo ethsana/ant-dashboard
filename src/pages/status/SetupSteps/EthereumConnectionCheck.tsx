@@ -20,7 +20,7 @@ export default function EthereumConnectionCheck({ isLoading, isOk, nodeAddresses
 
   return (
     <p>
-      Your Bee node must have access to the Ethereum blockchain, so that it can interact and deploy your chequebook
+      Your Ant node must have access to the Ethereum blockchain, so that it can interact and deploy your chequebook
       contract. You can run{' '}
       <a href="https://github.com/goerli/testnet" rel="noreferrer" target="_blank">
         your own Goerli node
@@ -33,7 +33,7 @@ export default function EthereumConnectionCheck({ isLoading, isOk, nodeAddresses
       <a href="https://infura.io/" rel="noreferrer" target="_blank">
         Infura
       </a>
-      . By default, Bee expects a local Goerli node at http://localhost:8545. To use a provider instead, simply change
+      . By default, Ant expects a local Goerli node at http://localhost:8545. To use a provider instead, simply change
       your <strong>--swap-endpoint</strong> in your configuration file.
     </p>
   )
