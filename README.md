@@ -1,4 +1,4 @@
-# Bee Dashboard
+# Ant Dashboard
 
 [![](https://img.shields.io/badge/made%20by-Swarm-blue.svg?style=flat-square)](https://swarm.ethereum.org/)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
@@ -17,75 +17,25 @@
 | ![Setup](/ui_samples/node_setup.png) | ![Files](/ui_samples/file_upload.png) | ![Accounting](/ui_samples/accounting.png) | ![Peers](/ui_samples/peers.png) | ![Settings](/ui_samples/settings.png) |
 
 
-## Table of Contents
-
-- [Install](#install)
-- [Usage](#usage)
-    - [Terminal](#terminal)
-    - [Docker](#docker)
-- [Contribute](#contribute)
-- [Development](#development)
-- [Maintainers](#maintainers)
-- [License](#license)
-
-## Install
-
-Install globally with npm. We require Node.js's version of at least 12.x and npm v6.x (or yarn v2.x).
-
-```sh
-npm install -g @ethersphere/bee-dashboard
-```
-
 ## Usage
 
-:warning: To successfully connect to the Bee node, you will need to enable the Debug API and CORS. You can do so by setting `cors-allowed-origins: ['*']` and `debug-api-enable: true` in the Bee config file and then restart the Bee node. To see where the config file is, consult the [official Bee documentation](https://docs.ethswarm.org/docs/working-with-bee/configuration#configuring-bee-installed-using-a-package-manager)
+:warning: To successfully connect to the ant node, you will need to enable the Debug API and CORS. You can do so by setting `cors-allowed-origins: ['*']` and `debug-api-enable: true` in the Bee config file and then restart the Bee node. 
 
-### Terminal
-
-To start use:
-```sh
-bee-dashboard
-```
-
-This should open the webpage on [`http://localhost:8080`](http://localhost:8080)
-
-### Docker
-
-To build Docker image and run it, execute the following from inside project directory:
-
-```sh
-docker build . -t bee-dashboard
-docker run --rm -p 127.0.0.1:8080:8080 bee-dashboard
-```
-
-Bee dashboard is now available on [`http://localhost:8080`](http://localhost:8080)
 
 ### Development
 
 ```sh
-git clone git@github.com:ethersphere/bee-dashboard.git
+git clone git@github.com:ethsana/ant-dashboard.git
 
-cd  bee-dashboard
+cd  ant-dashboard
 
 npm i
 
 npm start
 ```
 
-The Bee Dashboard runs in development mode on [http://localhost:3031/](http://localhost:3031/)
+The Ant Dashboard runs in development mode on [http://localhost:3031/](http://localhost:3031/)
 
-## Contribute
-
-There are some ways you can make this module better:
-
-- Consult our [open issues](https://github.com/ethersphere/bee-dashboard/issues) and take on one of them
-- Help our tests reach 100% coverage!
-- Join us in our [Discord chat](https://discord.gg/wdghaQsGq5) in the #develop-on-swarm channel if you have questions or want to give feedback
-
-## Maintainers
-
-- [nugaon](https://github.com/nugaon)
-- [vojtechsimetka](https://github.com/vojtechsimetka)
 
 ## License
 
