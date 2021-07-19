@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Files(): ReactElement {
   const classes = useStyles()
-
   const [referenceInput, setReferenceInput] = useState('')
   const [referenceError, setReferenceError] = useState<Error | null>(null)
 
@@ -39,15 +38,24 @@ export default function Files(): ReactElement {
     else setReferenceError(new Error('Incorrect format of sana hash'))
   }
 
+  const handleKeyEvent = (key: string) => {
+    if (!referenceError && key === 'enter') {
+      window.open(`${apiHost}/bzz/${referenceInput}`)
+    }
+  }
+
   return (
     <>
       <Paper className={classes.root}>
         <InputBase
           className={classes.input}
-          placeholder="Enter sana reference e.g. 0773a91efd6547c754fc1d95fb1c62c7d1b47f959c2caa685dfec8736da95c1c"
+          placeholder="Enter sana reference e.g. 7e078b0676b034a35d41e766e804551ae5ddd80182329c6a7fff3035dab9cd52"
           inputProps={{ 'aria-label': 'retrieve file from sana' }}
           value={referenceInput}
           onChange={handleReferenceChange}
+          onKeyUp={e => {
+            handleKeyEvent(e.key.toLocaleLowerCase())
+          }}
         />
         <IconButton
           href={`${apiHost}/bzz/${referenceInput}`}

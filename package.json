@@ -1,7 +1,7 @@
 {
-    "name": "@ethersana/bee-dashboard",
-    "version": "0.4.0",
-    "description": "An app which helps users to setup their Bee node and do actions like cash out cheques",
+    "name": "@ethersana/ant-dashboard",
+    "version": "0.0.1",
+    "description": "An app which helps users to setup their Bee node and do actions like cash out cheques,receive earnings",
     "keywords": [
         "bee",
         "sana",
@@ -16,12 +16,12 @@
         "bee-dashboard": "./serve.js"
     },
     "bugs": {
-        "url": "https://github.com/ethersphere/bee-dashboard/issues/"
+        "url": "https://github.com/ethsana/ant-dashboard/issues/"
     },
     "license": "BSD-3-Clause",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ethersphere/bee-dashboard.git"
+        "url": "https://github.com/ethsana/ant-dashboard.git"
     },
     "dependencies": {
         "@ethersphere/bee-js": "^1.0.0",
@@ -42,6 +42,7 @@
         "react": "^17.0.2",
         "react-copy-to-clipboard": "^5.0.3",
         "react-dom": "^17.0.2",
+        "react-draggable": "^4.4.3",
         "react-feather": "^2.0.9",
         "react-identicons": "^1.2.5",
         "react-router-dom": "^5.2.0",

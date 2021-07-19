@@ -24,6 +24,9 @@ import { apiHost, debugApiHost } from '../constants'
 
 const beeJSClient = () => new Bee(apiHost)
 
+const beeJSClientSANA = () => new Bee(debugApiHost)
+// const beeJSClientSANA = () => new Bee(apiHost)
+
 const beeJSDebugClient = () => new BeeDebug(debugApiHost)
 
 export const beeApi = {
@@ -42,10 +45,10 @@ export const beeApi = {
   },
   stamps: {
     getPostageStamps(): Promise<PostageBatch[]> {
-      return beeJSClient().getAllPostageBatch()
+      return beeJSClientSANA().getAllPostageBatch()
     },
     buyPostageStamp(amount: bigint, depth: number, options: PostageBatchOptions = {}): Promise<Address> {
-      return beeJSClient().createPostageBatch(amount.toString(), depth, options)
+      return beeJSClientSANA().createPostageBatch(amount.toString(), depth, options)
     },
   },
 }

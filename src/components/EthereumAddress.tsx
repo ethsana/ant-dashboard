@@ -4,7 +4,7 @@ import ClipboardCopy from './ClipboardCopy'
 
 import Identicon from 'react-identicons'
 import { ReactElement } from 'react'
-
+import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceWalletOutlined'
 interface Props {
   address: string | undefined
   network?: string
@@ -20,7 +20,8 @@ export default function EthereumAddress(props: Props): ReactElement {
         <div style={{ display: 'flex' }}>
           {props.hideBlockie ? null : (
             <div style={{ paddingTop: '5px', marginRight: '10px' }}>
-              <Identicon size={20} string={props.address} />
+              {/* <Identicon size={20} string={props.address} /> */}
+              <AccountBalanceWalletOutlinedIcon style={{ width: '23' }} />
             </div>
           )}
           <div>

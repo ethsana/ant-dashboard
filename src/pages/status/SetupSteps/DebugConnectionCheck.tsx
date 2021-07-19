@@ -33,7 +33,7 @@ export default function NodeConnectionCheck({ isLoading, isOk }: Props): ReactEl
         <Typography component="div" variant="body2" gutterBottom style={{ margin: '15px' }}>
           We cannot connect to your nodes debug API at <Typography variant="button">{debugApiHost}</Typography>. Please
           check the following to troubleshoot your issue.
-          <Accordion style={{ marginTop: '20px' }}>
+          {/* <Accordion style={{ marginTop: '20px' }}>
             <AccordionSummary expandIcon={<ExpandMoreSharp />} aria-controls="panel1a-content" id="panel1a-header">
               <Typography>Troubleshoot</Typography>
             </AccordionSummary>
@@ -85,7 +85,7 @@ export default function NodeConnectionCheck({ isLoading, isOk }: Props): ReactEl
                 </ol>
               </Typography>
             </AccordionDetails>
-          </Accordion>
+                    </Accordion>*/}
         </Typography>
       </div>
     </div>

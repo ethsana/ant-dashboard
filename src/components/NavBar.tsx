@@ -4,8 +4,8 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Toolbar, Chip, IconButton } from '@material-ui/core/'
 
 import { Sun, Moon } from 'react-feather'
-import SanaLogoLight from '../assets/sana-logo-light.png'
-import SanaLogoDark from '../assets/sana-logo-dark.png'
+import SanaLogoLight from '../assets/sana-logo-light.svg'
+import SanaLogoDark from '../assets/sana-logo-dark.svg'
 import useTheme from '../hooks/useTheme'
 
 const useStyles = makeStyles(theme =>

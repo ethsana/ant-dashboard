@@ -451,18 +451,28 @@ export const useEarnsInfo = () => {
   })
 
   useEffect(() => {
-    setLoading(true)
-    axios
-      .get(`${process.env.REACT_APP_BEE_DEBUG_HOST}/mine/status`)
-      .then(res => {
-        setEarnsInfo(res?.data)
-      })
-      .catch((error: Error) => {
-        setError(error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    const fetch = () => {
+      setLoading(true)
+      axios
+        .get(`${process.env.REACT_APP_BEE_DEBUG_HOST}/mine/status`)
+        .then(res => {
+          setEarnsInfo(res?.data)
+        })
+        .catch((error: Error) => {
+          setError(error)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    }
+    fetch()
+    const t = setInterval(() => {
+      fetch()
+    }, 10000)
+
+    return () => {
+      clearInterval(t)
+    }
   }, [])
 
   return { isLoadingEarnsInfo, error, earnsInfo }

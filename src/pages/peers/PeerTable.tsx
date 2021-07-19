@@ -13,10 +13,13 @@ import {
   Container,
   CircularProgress,
 } from '@material-ui/core'
-import { Autorenew } from '@material-ui/icons'
+// import { Autorenew } from '@material-ui/icons'
 
 import { beeDebugApi } from '../../services/bee'
 import type { Peer } from '@ethersphere/bee-js'
+import Rocketpng from '../../assets/rocket.png'
+
+const RocketIcon = () => <img src={Rocketpng} width="24" style={{ border: 'none', outline: 0 }} />
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -116,7 +119,8 @@ function PeerTable(props: Props): ReactElement {
                             peerLatency.filter(item => item.peerId === peer.address)[0].rtt
                           )
                         ) : (
-                          <Autorenew />
+                          // <Autorenew />
+                          <RocketIcon />
                         )
                         /* eslint-enable no-nested-ternary */
                       }

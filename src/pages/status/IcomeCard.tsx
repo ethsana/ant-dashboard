@@ -1,27 +1,34 @@
-import React, { ReactElement, useEffect, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import { useEarns } from '../../hooks/status'
-import { BigNumber } from 'bignumber.js'
+import CashoutEarnModal from '../../components/ CashoutEarnModal'
+import CashoutDespositModal from '../../components/CashoutDespositModal'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      //   backgroundColor: theme.palette.background.paper,
     },
     card: {
       padding: theme.spacing(2),
-      //   textAlign: 'center',
-
-      height: 100,
+      height: 142,
     },
     span: {
-      margin: '8px auto',
+      margin: '10px auto',
       color: theme.palette.text.primary,
       fontWeight: 500,
       fontSize: 15,
+    },
+    label: {
+      display: 'block',
+      fontSize: 16,
+      color: theme.palette.primary.main,
+    },
+    val: {
+      display: 'block',
+      paddingTop: '2px',
     },
   }),
 )
@@ -42,38 +49,59 @@ const PeerStatus = ({ isWork }: { isWork: boolean }) => (
 function IcomeCard(): ReactElement {
   const classes = useStyles()
   const { isLockup, reward, pending, isWork, totalEarns } = useEarns()
-  console.log('isWork', isWork)
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3} justifyContent="space-between">
         <Grid item xs={3}>
           <Card className={classes.card}>
-            <div className={classes.span}>Deposit：5000</div>
             <div className={classes.span}>
-              Peer Status：
-              <span>
+              <span className={classes.label}>Amount of SANA deposits</span>
+              <span className={classes.val}>50,000</span>
+            </div>
+            <div className={classes.span}>
+              <span className={classes.label}>Node Status</span>
+              <span className={classes.val}>
                 <PeerStatus isWork={isWork} />
-                {isWork ? 'working' : 'disconnected'}
+                {isWork ? 'working' : 'unwork'}
               </span>
             </div>
           </Card>
         </Grid>
         <Grid item xs={3}>
           <Card className={classes.card}>
-            <div className={classes.span}>{`Earnings Available：${reward.toFixedDecimal()}`}</div>
-            <div className={classes.span}>{`Received earnings：${pending.toFixedDecimal()}`}</div>
+            <div className={classes.span}>
+              <span className={classes.label}>Received rewards</span>
+              <span className={classes.val}>{reward.toFixedDecimal()}</span>
+            </div>
+            <div className={classes.span}>
+              <span className={classes.label}>Unclaimed awards</span>
+              <span className={classes.val}>{pending.toFixedDecimal()}</span>
+            </div>
           </Card>
         </Grid>
         <Grid item xs={3}>
           <Card className={classes.card}>
-            <div className={classes.span}>{`Lock-up volume：${isLockup ? '50,000' : '0'}`}</div>
-            <div className={classes.span}>{`Unfreeze：${isLockup ? '0' : '50,000'}`}</div>
+            <div className={classes.span}>
+              <span className={classes.label}>Frozen SANA</span>
+              <span className={classes.val}>{isLockup ? '50,000' : '0'}</span>
+            </div>
+            <div className={classes.span}>
+              <span className={classes.label}>Unfrozen SANA</span>
+              <span className={classes.val}> {isLockup ? '0' : '50,000'}</span>
+            </div>
           </Card>
         </Grid>
         <Grid item xs={3}>
           <Card className={classes.card}>
-            <div className={classes.span}>{`Total revenue：${totalEarns.toFixedDecimal()}`}</div>
+            <div className={classes.span}>
+              <span className={classes.label}>Total revenue</span>
+              <span className="val">{totalEarns.toFixedDecimal()}</span>
+            </div>
+            <div className={classes.span} style={{ display: 'flex', marginTop: '20px' }}>
+              <CashoutEarnModal disabled={Boolean(pending.toBigNumber.isZero())} />
+              <CashoutDespositModal disabled={isLockup || !isWork} />
+            </div>
           </Card>
         </Grid>
       </Grid>

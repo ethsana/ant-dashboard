@@ -27,14 +27,13 @@ export const useStatusNodeVersion = (): StatusNodeVersionHook => {
   const latestVersion = semver.coerce(latestBeeRelease?.name)?.version
   const latestUserVersion = semver.coerce(nodeHealth?.version)?.version
 
-  // const isLatestBeeVersion = Boolean(
-  //   latestVersion &&
-  //     latestUserVersion &&
-  //     semver.satisfies(latestVersion, latestUserVersion, {
-  //       includePrerelease: true,
-  //     }),
-  // )
-  const isLatestBeeVersion = true
+  const isLatestBeeVersion = Boolean(
+    latestVersion &&
+      latestUserVersion &&
+      semver.satisfies(latestVersion, latestUserVersion, {
+        includePrerelease: true,
+      }),
+  )
 
   return {
     isLoading: isLoadingNodeHealth || isLoadingLatestBeeRelease,
@@ -117,7 +116,7 @@ export interface Earns {
 export const useEarns = (): Earns => {
   const { isLoadingEarnsInfo, error, earnsInfo } = useEarnsInfo()
 
-  if (isLoadingEarnsInfo || error || !earnsInfo) {
+  if (error || !earnsInfo) {
     return {
       reward: new Token('0'),
       pending: new Token('0'),

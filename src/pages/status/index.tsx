@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { Container, CircularProgress } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
@@ -45,7 +45,6 @@ export default function Status(): ReactElement {
       </Container>
     )
   }
-  const isOk = checks.every(c => c.isOk)
 
   return (
     <div className={classes.root}>

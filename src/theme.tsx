@@ -66,7 +66,7 @@ export const lightTheme = createTheme({
     primary: {
       light: orange.A200,
       main: '#4086e0',
-      dark: orange[800],
+      dark: '#086cf0',
     },
     secondary: {
       main: '#333333',
@@ -88,9 +88,9 @@ export const darkTheme = createTheme({
       appBar: '#212121',
     },
     primary: {
-      light: orange.A200,
+      light: '#fafafa',
       main: '#4086e0',
-      dark: orange[800],
+      dark: '#086cf0',
     },
     secondary: {
       main: '#1f2937',

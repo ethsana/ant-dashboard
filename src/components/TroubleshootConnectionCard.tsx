@@ -26,9 +26,9 @@ export default function TroubleshootConnectionCard(): ReactElement {
         </Typography>
         <div style={{ marginBottom: '20px', textAlign: 'center' }}>
           <strong>
-            <Link to="/">Click to run status checks</Link> on your nodes connection or check out the{' '}
+            <Link to="/peers">Click to run status checks</Link> on your nodes connection or check out the{' '}
             <a href={process.env.REACT_APP_BEE_DOCS_HOST} target="_blank" rel="noreferrer">
-              SANA Bee Docs
+              SANA Ant Docs
             </a>
           </strong>
         </div>
@@ -36,7 +36,7 @@ export default function TroubleshootConnectionCard(): ReactElement {
         <div style={{ marginBottom: '20px', textAlign: 'center' }}>
           <p style={{ marginTop: '50px' }}>
             Still not working? Drop us a message on the Ethereum SANA{' '}
-            <a href={process.env.REACT_APP_BEE_DISCORD_HOST} target="_blank" rel="noreferrer">
+            <a href="https://discord.gg/c72mpR7Erf" target="_blank" rel="noreferrer">
               Discord
             </a>
           </p>

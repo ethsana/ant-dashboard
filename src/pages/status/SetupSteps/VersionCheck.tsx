@@ -38,7 +38,7 @@ export default function VersionCheck({
   if (isOk) {
     return (
       <>
-        <span>You are running the latest version of Bee</span>
+        <span>You are running the latest version of Ant</span>
         {version}
       </>
     )
@@ -48,7 +48,7 @@ export default function VersionCheck({
   return (
     <>
       <span>
-        Your Bee version is out of date. Please update to the{' '}
+        Your Ant version is out of date. Please update to the{' '}
         <a href={latestUrl} rel="noreferrer" target="_blank">
           latest
         </a>{' '}
@@ -57,11 +57,11 @@ export default function VersionCheck({
           Docs
         </a>
       </span>
-      <CodeBlockTabs
+      {/* <CodeBlockTabs
         showLineNumbers
-        linux={`bee version\nwget https://github.com/ethersphere/bee/releases/download/${latestVersion}/bee_${latestVersion}_amd64.deb\nsudo dpkg -i bee_${latestVersion}_amd64.deb`}
+        linux={`bee version\nwget https://github.com/ethsana/sana/releases/download/${latestVersion}/ant-linux-amd64\nsudo dpkg -i bee_${latestVersion}_amd64.deb`}
         mac={`bee version\nbrew tap ethersphere/tap\nbrew install sana-bee\nbrew services start sana-bee`}
-      />
+      /> */}
       {version}
     </>
   )

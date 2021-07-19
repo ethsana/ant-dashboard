@@ -132,7 +132,7 @@ export default function SideBar(props: Props): ReactElement {
             ))}
           </List>
           <Divider />
-          <List>
+          {/* <List>
             <MUILink
               href={process.env.REACT_APP_BEE_DOCS_HOST}
               target="_blank"
@@ -143,7 +143,7 @@ export default function SideBar(props: Props): ReactElement {
                 <OpenInNewSharp fontSize="small" />
               </ListItem>
             </MUILink>
-          </List>
+          </List> */}
         </div>
         <div style={{ position: 'fixed', bottom: 0, width: 'inherit', padding: '10px' }}>
           <ListItem>

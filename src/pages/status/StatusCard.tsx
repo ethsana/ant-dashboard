@@ -1,6 +1,5 @@
 import { ReactElement, useState } from 'react'
 import { Link } from 'react-router-dom'
-
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, Chip, Button } from '@material-ui/core/'
 import { CheckCircle, Error, ArrowRight, ArrowDropUp } from '@material-ui/icons/'
@@ -38,8 +37,6 @@ function StatusCard({
   latestUrl,
 }: Props): ReactElement | null {
   const classes = useStyles()
-  console.log('instisOk', isOk)
-
   const [underlayAddressesVisible, setUnderlayAddresessVisible] = useState<boolean>(false)
 
   return (
@@ -49,13 +46,13 @@ function StatusCard({
           {isOk && (
             <div>
               <CheckCircle style={{ color: '#32c48d', marginRight: '7px' }} />
-              <span>Your Bee node is running as expected</span>
+              <span>Your ant node is running as expected</span>
             </div>
           )}
           {!isOk && (
             <div>
               <Error style={{ color: '#c9201f', marginRight: '7px' }} />
-              <span>Could not connect to Bee Node</span>
+              <span>Could not connect to Ant Node</span>
             </div>
           )}
         </Typography>
@@ -71,8 +68,8 @@ function StatusCard({
             <div>
               <Typography component="div" variant="subtitle2" gutterBottom>
                 <span>AGENT: </span>
-                <a href="https://github.com/ethersphere/bee" rel="noreferrer" target="_blank">
-                  Bee
+                <a href="https://github.com/ethsana/sana" rel="noreferrer" target="_blank">
+                  Ant
                 </a>{' '}
                 <span>{userBeeVersion || '-'}</span>
                 {isLatestBeeVersion ? (
