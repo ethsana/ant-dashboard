@@ -52,7 +52,7 @@ function StatusCard({
           {!isOk && (
             <div>
               <Error style={{ color: '#c9201f', marginRight: '7px' }} />
-              <span>Could not connect to Ant Node</span>
+              <span>Could not connect to ant node</span>
             </div>
           )}
         </Typography>

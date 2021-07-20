@@ -1,7 +1,7 @@
 {
     "name": "ant-dashboard",
-    "version": "0.0.3",
-    "description": "An app which helps users to setup their Ant node and do actions like cash out cheques,receive earnings",
+    "version": "0.0.4",
+    "description": "An app which helps users to setup their ant node and do actions like cash out cheques,receive earnings",
     "keywords": [
         "ant",
         "sana",

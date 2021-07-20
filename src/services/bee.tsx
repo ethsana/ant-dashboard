@@ -25,7 +25,6 @@ import { apiHost, debugApiHost } from '../constants'
 const beeJSClient = () => new Bee(apiHost)
 
 const beeJSClientSANA = () => new Bee(debugApiHost)
-// const beeJSClientSANA = () => new Bee(apiHost)
 
 const beeJSDebugClient = () => new BeeDebug(debugApiHost)
 
