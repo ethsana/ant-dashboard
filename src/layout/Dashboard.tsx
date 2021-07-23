@@ -52,7 +52,9 @@ const Dashboard = (props: Props): ReactElement => {
 
   // FIXME: handle errrors and loading
   const { health } = useApiHealth()
-  const { nodeHealth } = useDebugApiHealth()
+  const { nodeHealth, isLoadingNodeHealth } = useDebugApiHealth()
+
+  const userVersion = nodeHealth?.version
 
   // useEffect(() => {
   //   const theme = localStorage.getItem('theme')
@@ -82,7 +84,7 @@ const Dashboard = (props: Props): ReactElement => {
       <SideBar {...props} themeMode={themeMode} health={health} nodeHealth={nodeHealth} />
       <ErrorBoundary>
         <main className={classes.main}>
-          <AlertVersion />
+          <AlertVersion version={userVersion} isLoadingNodeHealth={isLoadingNodeHealth} />
           {props.children}
         </main>
       </ErrorBoundary>

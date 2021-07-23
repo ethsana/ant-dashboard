@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card'
 import { useEarns } from '../../hooks/status'
 import CashoutEarnModal from '../../components/ CashoutEarnModal'
 import CashoutDespositModal from '../../components/CashoutDespositModal'
+import { Container } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +53,7 @@ function IcomeCard(): ReactElement {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} justifyContent="space-between">
+      <Grid container spacing={4}>
         <Grid item xs={3}>
           <Card className={classes.card}>
             <div className={classes.span}>

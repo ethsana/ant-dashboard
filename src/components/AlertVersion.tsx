@@ -5,8 +5,9 @@ import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { useStatusNodeVersion } from '../hooks/status'
-// import { SUPPORTED_BEE_VERSION_EXACT } from '@ethersphere/bee-js'
-const SUPPORTED_BEE_VERSION_EXACT = '0.0.2'
+import { version } from 'prettier'
+
+// const SUPPORTED_Ant_VERSION_EXACT = '0.0.2'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -16,16 +17,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function VersionAlert(): ReactElement | null {
+interface VersionInface {
+  version: string | null | undefined
+  isLoadingNodeHealth: boolean
+}
+
+export default function VersionAlert(props: VersionInface): ReactElement | null {
   const classes = useStyles()
   const { isLoading, userVersion } = useStatusNodeVersion()
   const [open, setOpen] = useState<boolean>(true)
-  const isExactlySupportedBeeVersion = SUPPORTED_BEE_VERSION_EXACT === userVersion
 
-  if (isLoading || !userVersion) return null
+  if (isLoading || props.isLoadingNodeHealth) return null
+
+  const isExactlySupportedAntVersion = props.version === userVersion
 
   return (
-    <Collapse in={!isExactlySupportedBeeVersion && open}>
+    <Collapse in={!isExactlySupportedAntVersion && open}>
       <div className={classes.root}>
         <Alert
           severity="warning"
@@ -43,9 +50,8 @@ export default function VersionAlert(): ReactElement | null {
           }
         >
           <AlertTitle>Warning</AlertTitle>
-          Your Bee node version (<code>{userVersion}</code>) does not exactly match the Bee version we tested the Bee
-          Dashboard against (<code>{SUPPORTED_BEE_VERSION_EXACT}</code>). Please note that some functionality may not
-          work properly.
+          Your Ant node version (<code>{userVersion}</code>) does not exactly match the Ant version we tested the Ant
+          Dashboard against (<code>{props.version}</code>). Please note that some functionality may not work properly.
         </Alert>
       </div>
     </Collapse>
