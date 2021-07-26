@@ -25,7 +25,6 @@
     - [Terminal](#terminal)
     - [Docker](#docker)
     - [Development](#development)
-  - [Maintainers](#maintainers)
   - [License](#license)
 
 ## Install
@@ -38,7 +37,7 @@ npm install -g ant-dashboard
 
 ## Usage
 
-:warning: To successfully connect to the Ant node, you will need to enable the Debug API and CORS. You can do so by setting `cors-allowed-origins: ['*']` and `debug-api-enable: true` in the Ant config file and then restart the Ant node.
+:warning: To successfully connect to the Ant node, you will need to enable the Debug API and CORS. You can do so by setting `cors-allowed-origins: ["*"]` and `debug-api-enable: true` in the Ant config file and then restart the Ant node.
 
 ### Terminal
 
@@ -73,10 +72,6 @@ npm start
 ```
 
 The Ant Dashboard runs in development mode on [http://localhost:3031/](http://localhost:3031/)
-
-## Maintainers
-
-- [sana_gavin](https://github.com/gavinjs01)
 
 ## License
 
