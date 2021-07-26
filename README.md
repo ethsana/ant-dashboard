@@ -62,7 +62,7 @@ Ant dashboard is now available on [`http://localhost:8080`](http://localhost:808
 ### Development
 
 ```sh
-git clone git@github.com:gavinjs01/ant-dashboard.git
+git clone https://github.com/ethsana/ant-dashboard.git
 
 cd  ant-dashboard
 
