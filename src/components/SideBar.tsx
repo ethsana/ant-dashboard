@@ -134,7 +134,7 @@ export default function SideBar(props: Props): ReactElement {
           <Divider />
           {/* <List>
             <MUILink
-              href={process.env.REACT_APP_BEE_DOCS_HOST}
+              href={process.env.REACT_APP_ANT_DOCS_HOST}
               target="_blank"
               style={{ textDecoration: 'none', color: '#fff' }}
             >

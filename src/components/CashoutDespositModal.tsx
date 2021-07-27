@@ -40,7 +40,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
     }
     lock = true
     axios
-      .post(`${process.env.REACT_APP_BEE_DEBUG_HOST}/mine/cashdeposit`)
+      .post(`${sessionStorage.getItem('debug_api_host')}||${process.env.REACT_APP_ANT_DEBUG_HOST}/mine/cashdeposit`)
       .then(({ data }) => {
         setHash(data.hash)
         handleClickOpen()

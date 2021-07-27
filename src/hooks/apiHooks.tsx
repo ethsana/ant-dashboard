@@ -416,7 +416,7 @@ export const useLatestBeeRelease = (): LatestBeeReleaseHook => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BEE_GITHUB_REPO_URL}/releases/latest`)
+      .get(`${process.env.REACT_APP_ANT_GITHUB_REPO_URL}/releases/latest`)
       .then(res => {
         setLatestBeeRelease(res.data)
       })
@@ -454,7 +454,7 @@ export const useEarnsInfo = () => {
     const fetch = () => {
       setLoading(true)
       axios
-        .get(`${sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_BEE_DEBUG_HOST}/mine/status`)
+        .get(`${sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_ANT_DEBUG_HOST}/mine/status`)
         .then(res => {
           setEarnsInfo(res?.data)
         })

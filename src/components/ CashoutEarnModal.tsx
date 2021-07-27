@@ -41,7 +41,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
     }
     lock = true
     axios
-      .post(`${process.env.REACT_APP_BEE_DEBUG_HOST}/mine/withdraw`)
+      .post(`${sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_ANT_DEBUG_HOST}/mine/withdraw`)
       .then(({ data }) => {
         if (Boolean(data?.code)) {
           enqueueSnackbar(`Cashout: ${data?.message}`, { variant: 'error' })

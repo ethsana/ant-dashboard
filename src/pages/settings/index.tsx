@@ -35,7 +35,7 @@ export default function Settings(): ReactElement {
             helperText="Enter node host override / port"
             fullWidth
             defaultValue={
-              sessionStorage.getItem('api_host') ? sessionStorage.getItem('api_host') : process.env.REACT_APP_BEE_HOST
+              sessionStorage.getItem('api_host') ? sessionStorage.getItem('api_host') : process.env.REACT_APP_ANT_HOST
             }
             margin="normal"
             InputLabelProps={{
@@ -58,7 +58,7 @@ export default function Settings(): ReactElement {
             defaultValue={
               sessionStorage.getItem('debug_api_host')
                 ? sessionStorage.getItem('debug_api_host')
-                : process.env.REACT_APP_BEE_DEBUG_HOST
+                : process.env.REACT_APP_ANT_DEBUG_HOST
             }
             onChange={e => {
               setDebugHost(e.target.value)

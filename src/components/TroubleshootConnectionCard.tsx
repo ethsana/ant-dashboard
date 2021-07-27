@@ -27,7 +27,7 @@ export default function TroubleshootConnectionCard(): ReactElement {
         <div style={{ marginBottom: '20px', textAlign: 'center' }}>
           <strong>
             <Link to="/peers">Click to run status checks</Link> on your nodes connection or check out the{' '}
-            <a href={process.env.REACT_APP_BEE_DOCS_HOST} target="_blank" rel="noreferrer">
+            <a href={process.env.REACT_APP_ANT_DOCS_HOST} target="_blank" rel="noreferrer">
               SANA Ant Docs
             </a>
           </strong>
