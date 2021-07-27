@@ -2,10 +2,12 @@ import React, { ReactElement } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
-import { useEarns } from '../../hooks/status'
+import { Button, colors } from '@material-ui/core'
 import CashoutEarnModal from '../../components/ CashoutEarnModal'
 import CashoutDespositModal from '../../components/CashoutDespositModal'
-import { Container } from '@material-ui/core'
+// import { Container } from '@material-ui/core'
+import { Sync } from '@material-ui/icons/'
+import { Token } from '../../models/Token'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     card: {
       padding: theme.spacing(2),
-      height: 142,
+      // height: 142,
     },
     span: {
       margin: '10px auto',
@@ -47,9 +49,17 @@ const PeerStatus = ({ isWork }: { isWork: boolean }) => (
   />
 )
 
-function IcomeCard(): ReactElement {
+interface IncomeProps {
+  isLockup: boolean
+  reward: Token
+  pending: Token
+  isWork: boolean
+  totalEarns: Token
+  error: string
+}
+
+function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: IncomeProps): ReactElement {
   const classes = useStyles()
-  const { isLockup, reward, pending, isWork, totalEarns } = useEarns()
 
   return (
     <div className={classes.root}>
@@ -64,7 +74,18 @@ function IcomeCard(): ReactElement {
               <span className={classes.label}>Node Status</span>
               <span className={classes.val}>
                 <PeerStatus isWork={isWork} />
-                {isWork ? 'working' : 'unwork'}
+                {error ? ' The node is wrong, refresh to check' : isWork ? 'working' : 'unwork'}
+                {error && (
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    style={{ marginTop: '7px' }}
+                    onClick={() => window.location.reload()}
+                  >
+                    <Sync />
+                    <span>Refresh Checks</span>
+                  </Button>
+                )}
               </span>
             </div>
           </Card>

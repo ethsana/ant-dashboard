@@ -20,7 +20,7 @@ export default function VersionCheck({
           <span>User Version</span>
         </p>
         <Typography component="h5" variant="h5">
-          <span>{userVersion}</span>
+          <span>{userVersion || '--'}</span>
         </Typography>
       </div>
       <div>

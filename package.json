@@ -1,6 +1,6 @@
 {
     "name": "ant-dashboard",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "An app which helps users to setup their ant node and do actions like cash out cheques,receive earnings",
     "keywords": [
         "ant",

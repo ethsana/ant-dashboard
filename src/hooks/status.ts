@@ -11,8 +11,6 @@ import {
   useEarnsInfo,
 } from './apiHooks'
 import semver from 'semver'
-import { engines } from '../../package.json'
-import BigNumber from 'bignumber.js'
 import { Token } from '../models/Token'
 
 export interface StatusChequebookHook extends StatusHookCommon {
@@ -111,12 +109,13 @@ export interface Earns {
   totalEarns: Token
   isLoadingEarnsInfo: boolean
   isLockup: boolean
+  error: string
 }
 
 export const useEarns = (): Earns => {
   const { isLoadingEarnsInfo, error, earnsInfo } = useEarnsInfo()
 
-  if (error || !earnsInfo) {
+  if (!earnsInfo) {
     return {
       reward: new Token('0'),
       pending: new Token('0'),
@@ -124,6 +123,7 @@ export const useEarns = (): Earns => {
       isWork: false,
       isLoadingEarnsInfo,
       isLockup: false,
+      error: 'connected fail',
     }
   }
 
@@ -139,5 +139,6 @@ export const useEarns = (): Earns => {
     isWork: Boolean(earnsInfo.work),
     isLoadingEarnsInfo,
     isLockup,
+    error: '',
   }
 }

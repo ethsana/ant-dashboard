@@ -13,6 +13,7 @@ import {
 import { beeDebugApi, beeApi } from '../services/bee'
 import axios from 'axios'
 import { Token } from '../models/Token'
+// import { resolve } from 'node:path'
 
 export interface HealthHook {
   health: boolean
@@ -58,7 +59,6 @@ export const useDebugApiHealth = (): DebugHealthHook => {
     beeDebugApi.status
       .nodeHealth()
       .then(res => {
-        // setNodeHealth({...res, version:'0.0.2'})
         setNodeHealth(res)
       })
       .catch(error => {
@@ -454,21 +454,21 @@ export const useEarnsInfo = () => {
     const fetch = () => {
       setLoading(true)
       axios
-        .get(`${process.env.REACT_APP_BEE_DEBUG_HOST}/mine/status`)
+        .get(`${sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_BEE_DEBUG_HOST}/mine/status`)
         .then(res => {
           setEarnsInfo(res?.data)
         })
         .catch((error: Error) => {
           setError(error)
+          setEarnsInfo(null)
         })
         .finally(() => {
           setLoading(false)
         })
     }
+
     fetch()
-    const t = setInterval(() => {
-      fetch()
-    }, 10000)
+    const t = setInterval(() => fetch(), 10000)
 
     return () => {
       clearInterval(t)

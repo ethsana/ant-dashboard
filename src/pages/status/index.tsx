@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { Container, CircularProgress } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
@@ -13,7 +13,10 @@ import {
   useStatusConnection,
   useStatusTopology,
   useStatusChequebook,
+  useEarns,
 } from '../../hooks/status'
+
+// import NodeError from '../../components/NodeError'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Status(): ReactElement {
   const classes = useStyles()
-
   const nodeVersion = useStatusNodeVersion()
   const ethereumConnection = useStatusEthereumConnection()
   const debugApiConnection = useStatusDebugConnection()
   const apiConnection = useStatusConnection()
   const topology = useStatusTopology()
   const chequebook = useStatusChequebook()
+  const mineStatus = useEarns()
 
   const checks = [nodeVersion, ethereumConnection, debugApiConnection, apiConnection, topology, chequebook]
 
@@ -56,7 +59,15 @@ export default function Status(): ReactElement {
         latestUrl={nodeVersion.latestUrl}
         nodeAddresses={ethereumConnection.nodeAddresses}
       />
-      <IconCard />
+      {/* <NodeError isWork={mineStatus.isWork} isLoading={mineStatus.isLoadingEarnsInfo} /> */}
+      <IconCard
+        error={mineStatus.error}
+        isLockup={mineStatus.isLockup}
+        isWork={mineStatus.isWork}
+        reward={mineStatus.reward}
+        pending={mineStatus.pending}
+        totalEarns={mineStatus.totalEarns}
+      />
       {ethereumConnection.nodeAddresses && chequebook.chequebookAddress && (
         <EthereumAddressCard
           nodeAddresses={ethereumConnection.nodeAddresses}
