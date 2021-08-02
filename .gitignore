@@ -11,6 +11,12 @@
 # production
 /build
 
+/src
+
+/ui_samples
+
+
+
 # misc
 .DS_Store
 .env.local
@@ -21,3 +27,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+serve.js
+README.md
+
