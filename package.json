@@ -11,7 +11,7 @@
         "typescript",
         "p2p"
     ],
-    "homepage": "http://.",
+    "homepage": "/",
     "bin": {
         "ant-dashboard": "serve.js"
     },
