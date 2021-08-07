@@ -68,10 +68,10 @@ function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: Inc
           <Card className={classes.card}>
             <div className={classes.span}>
               <span className={classes.label}>Amount of SANA deposits</span>
-              <span className={classes.val}>50,000</span>
+              <span className={classes.val}>{isWork ? '50,000' : '0'}</span>
             </div>
             <div className={classes.span}>
-              <span className={classes.label}>Node Status</span>
+              <span className={classes.label}>Miner Node Status</span>
               <span className={classes.val}>
                 <PeerStatus isWork={isWork} />
                 {error ? ' The node is wrong, refresh to check' : isWork ? 'working' : 'unwork'}
@@ -106,11 +106,11 @@ function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: Inc
           <Card className={classes.card}>
             <div className={classes.span}>
               <span className={classes.label}>Frozen SANA</span>
-              <span className={classes.val}>{isLockup ? '50,000' : '0'}</span>
+              <span className={classes.val}>{isWork ? (isLockup ? '50,000' : '0') : '0'}</span>
             </div>
             <div className={classes.span}>
               <span className={classes.label}>Unfrozen SANA</span>
-              <span className={classes.val}> {isLockup ? '0' : '50,000'}</span>
+              <span className={classes.val}> {isWork ? (isLockup ? '0' : '50,000') : '0'}</span>
             </div>
           </Card>
         </Grid>
@@ -122,7 +122,7 @@ function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: Inc
             </div>
             <div className={classes.span} style={{ display: 'flex', marginTop: '20px' }}>
               <CashoutEarnModal disabled={Boolean(pending.toBigNumber.isZero())} />
-              <CashoutDespositModal disabled={isLockup || !isWork} />
+              <CashoutDespositModal disabled={isLockup} />
             </div>
           </Card>
         </Grid>
