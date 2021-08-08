@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react'
+import React, { Fragment, useCallback, useState, useContext } from 'react'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -9,6 +9,8 @@ import ClipboardCopy from './ClipboardCopy'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import axios from 'axios'
 import { useSnackbar } from 'notistack'
+import { Context as ApplicationContext, ApplicationInterface } from '../providers/Application'
+import { NodeApi } from '../utils'
 
 let lock = false
 
@@ -18,6 +20,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
   const { enqueueSnackbar } = useSnackbar()
   const [pending, setPending] = useState(false)
   const [error, setError] = useState(false)
+  const { nodeApi } = useContext<ApplicationInterface>(ApplicationContext)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -34,7 +37,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
     lock = true
     setPending(true)
 
-    const url = sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_ANT_DEBUG_HOST
+    const url = nodeApi.debugApiHost
     axios
       .post(`${url}/mine/cashdeposit`)
       .then(({ data }) => {

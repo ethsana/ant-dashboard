@@ -5,6 +5,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import NodeSetupWorkflow from './NodeSetupWorkflow'
 import StatusCard from './StatusCard'
 import EthereumAddressCard from '../../components/EthereumAddressCard'
+// import NodeError from '../../components/NodeError'
 import IconCard from './IcomeCard'
 import {
   useStatusEthereumConnection,
@@ -49,6 +50,8 @@ export default function Status(): ReactElement {
     )
   }
 
+  console.log(mineStatus)
+
   return (
     <div className={classes.root}>
       <StatusCard
@@ -60,14 +63,16 @@ export default function Status(): ReactElement {
         nodeAddresses={ethereumConnection.nodeAddresses}
       />
       {/* <NodeError isWork={mineStatus.isWork} isLoading={mineStatus.isLoadingEarnsInfo} /> */}
-      <IconCard
-        error={mineStatus.error}
-        isLockup={mineStatus.isLockup}
-        isWork={mineStatus.isWork}
-        reward={mineStatus.reward}
-        pending={mineStatus.pending}
-        totalEarns={mineStatus.totalEarns}
-      />
+      {!mineStatus.error && (
+        <IconCard
+          error={mineStatus.error}
+          isLockup={mineStatus.isLockup}
+          isWork={mineStatus.isWork}
+          reward={mineStatus.reward}
+          pending={mineStatus.pending}
+          totalEarns={mineStatus.totalEarns}
+        />
+      )}
       {ethereumConnection.nodeAddresses && chequebook.chequebookAddress && (
         <EthereumAddressCard
           nodeAddresses={ethereumConnection.nodeAddresses}
