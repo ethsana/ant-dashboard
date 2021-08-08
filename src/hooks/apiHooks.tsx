@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import {
   NodeAddresses,
@@ -14,6 +14,8 @@ import { beeDebugApi, beeApi } from '../services/bee'
 import axios from 'axios'
 import { Token } from '../models/Token'
 // import { resolve } from 'node:path'
+import { Context as ApplicationContext, ApplicationInterface } from '../providers/Application'
+import { NodeApi } from '../utils'
 
 export interface HealthHook {
   health: boolean
@@ -450,11 +452,13 @@ export const useEarnsInfo = () => {
     expire: '0',
   })
 
+  const { nodeApi } = useContext<ApplicationInterface>(ApplicationContext)
+
   useEffect(() => {
     const fetch = () => {
       setLoading(true)
       axios
-        .get(`${sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_ANT_DEBUG_HOST}/mine/status`)
+        .get(`${nodeApi.debugApiHost}/mine/status`)
         .then(res => {
           setEarnsInfo(res?.data)
         })

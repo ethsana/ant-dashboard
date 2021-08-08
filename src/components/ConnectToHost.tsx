@@ -1,5 +1,7 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useContext } from 'react'
 import { TextField, Button, CircularProgress, Container } from '@material-ui/core'
+import { Context as ApplicationContext, ApplicationInterface } from '../providers/Application'
+import { NodeApi, updateNodeApi } from '../utils'
 
 interface Props {
   defaultHost?: string
@@ -10,11 +12,25 @@ export default function ConnectToHost(props: Props): ReactElement {
   const [hostInputVisible, toggleHostInputVisibility] = useState(false)
   const [connectingToHost, setConnectingToHost] = useState(false)
   const [host, setHost] = useState('')
+  const { nodeApi } = useContext<ApplicationInterface>(ApplicationContext)
 
   const handleNewHostConnection = () => {
     if (host) {
       setConnectingToHost(true)
-      sessionStorage.setItem(props.hostName, host)
+
+      if (props.hostName === 'api_host') {
+        updateNodeApi({
+          ...nodeApi,
+          apiHost: host,
+        })
+      } else if (props.hostName === 'debug_api_host') {
+        updateNodeApi({
+          ...nodeApi,
+          debugApiHost: host,
+        })
+      } else {
+        localStorage.setItem(props.hostName, host)
+      }
       toggleHostInputVisibility(!hostInputVisible)
       window.location.reload()
     }

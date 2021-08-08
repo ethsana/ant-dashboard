@@ -9,6 +9,7 @@ import { SnackbarProvider } from 'notistack'
 import BaseRouter from './routes/routes'
 import { lightTheme, darkTheme } from './theme'
 import { Provider as StampsProvider } from './providers/Stamps'
+import { Provider as ApplicationProvider } from './providers/Stamps'
 // import useTheme from './hooks/useTheme'
 
 export const Context = createContext<{ theme: string; updater?: () => void }>({ theme: 'dark' })
@@ -25,18 +26,20 @@ const App = (): ReactElement => {
   // }
 
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <StampsProvider>
-        <SnackbarProvider>
-          <Context.Provider value={{ theme }}>
-            <CssBaseline />
-            <Router>
-              <BaseRouter />
-            </Router>
-          </Context.Provider>
-        </SnackbarProvider>
-      </StampsProvider>
-    </ThemeProvider>
+    <ApplicationProvider>
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <StampsProvider>
+          <SnackbarProvider>
+            <Context.Provider value={{ theme }}>
+              <CssBaseline />
+              <Router>
+                <BaseRouter />
+              </Router>
+            </Context.Provider>
+          </SnackbarProvider>
+        </StampsProvider>
+      </ThemeProvider>
+    </ApplicationProvider>
   )
 }
 

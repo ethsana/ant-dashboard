@@ -1,4 +1,6 @@
 // These values can for now be constants because their change in the app reloads the page
-export const apiHost = sessionStorage.getItem('api_host') || process.env.REACT_APP_ANT_HOST || 'http://localhost:1633'
-export const debugApiHost =
-  sessionStorage.getItem('debug_api_host') || process.env.REACT_APP_ANT_DEBUG_HOST || 'http://localhost:1635'
+import { getNodeApi } from './utils'
+
+const nodeApi = getNodeApi()
+export const apiHost = nodeApi.apiHost
+export const debugApiHost = nodeApi.debugApiHost
