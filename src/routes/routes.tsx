@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { Switch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import AppRoute from './AppRoute'
 
@@ -13,9 +13,11 @@ import Peers from '../pages/peers'
 import Accounting from '../pages/accounting'
 import Settings from '../pages/settings'
 import Stamps from '../pages/stamps'
+import ConfigNodes from '../pages/ confignodes'
 
 const BaseRouter = (): ReactElement => (
   <Switch>
+    {/* <Route exact path="/" component={ConfigNodes}></Route> */}
     <AppRoute exact path="/" layout={Dashboard} component={Status} />
     <AppRoute exact path="/files/" layout={Dashboard} component={Files} />
     <AppRoute exact path="/peers/" layout={Dashboard} component={Peers} />

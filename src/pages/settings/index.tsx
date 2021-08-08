@@ -25,9 +25,27 @@ export default function Settings(): ReactElement {
     <div>
       <Container>
         <Typography variant="h4" gutterBottom>
-          Settings
+          Settings Node API
         </Typography>
         <Paper>
+          <TextField
+            label="Node Name"
+            style={{ margin: 0 }}
+            placeholder="Any non-empty string（ex: node01、node02 ...）"
+            helperText="Enter node name"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={e => {
+              // setHost(e.target.value)
+              // toggleRefreshVisibility(true)
+            }}
+            variant="filled"
+          />
+        </Paper>
+        <Paper style={{ marginTop: '20px' }}>
           <TextField
             label="API Endpoint"
             style={{ margin: 0 }}
@@ -71,13 +89,16 @@ export default function Settings(): ReactElement {
             variant="filled"
           />
         </Paper>
-        {refreshVisibility ? (
-          <div style={{ marginTop: '20px' }}>
-            <Button variant="outlined" color="primary" onClick={() => handleNewHostConnection()}>
-              Save
-            </Button>
-          </div>
-        ) : null}
+
+        <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
+          <Button variant="outlined" color="primary" onClick={() => handleNewHostConnection()}>
+            set
+          </Button>
+          <div style={{ width: '30px' }} />
+          <Button variant="outlined" color="primary" onClick={() => handleNewHostConnection()}>
+            add
+          </Button>
+        </div>
       </Container>
     </div>
   )
