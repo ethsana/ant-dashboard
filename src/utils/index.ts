@@ -176,9 +176,23 @@ export function setAcitveNodeApi(key: string): void {
   localStorage.acitve_node_api_key = key
 }
 
-// const urlReg = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i
-const urlReg = /^https?:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/i
-
 export function isUrl(url: string): boolean {
-  return urlReg.test(url)
+  try {
+    if (typeof url !== 'string') {
+      return false
+    }
+
+    const urlObject = new URL(url)
+
+    // There can be wide range of protocols passed.
+    return urlObject.protocol === 'http:' || urlObject.protocol === 'https:'
+  } catch (e) {
+    // URL constructor throws TypeError if not valid URL
+    // TODO: Drop the `.code` hack for NodeJS environment: https://github.com/ethersphere/bee-js/issues/204
+    if (e instanceof TypeError || (e.code && e.code === 'ERR_INVALID_URL')) {
+      return false
+    } else {
+      throw e
+    }
+  }
 }
