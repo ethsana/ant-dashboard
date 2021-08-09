@@ -50,8 +50,6 @@ export default function Status(): ReactElement {
     )
   }
 
-  console.log(mineStatus)
-
   return (
     <div className={classes.root}>
       <StatusCard

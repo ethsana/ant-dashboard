@@ -64,7 +64,7 @@ function uuid2(len = 16, radix?: number) {
 }
 
 export type NodeApi = {
-  key: string
+  id: string
   nodeName: string
   apiHost: string
   debugApiHost: string
@@ -74,10 +74,10 @@ export function getNodeApiList(): NodeApi[] {
   const nodeApi: NodeApi[] = []
   try {
     const arr: NodeApi[] = JSON.parse(localStorage.node_api)
-    arr.forEach(({ key, nodeName, apiHost, debugApiHost }, index) => {
-      if (key) {
+    arr.forEach(({ id, nodeName, apiHost, debugApiHost }, index) => {
+      if (id) {
         const node: NodeApi = {
-          key,
+          id,
           nodeName: nodeName ? nodeName.toString().trim() : `node${index}`,
           apiHost: apiHost ? apiHost.toString().trim() : '',
           debugApiHost: debugApiHost ? debugApiHost.toString().trim() : '',
@@ -95,76 +95,90 @@ export function getNodeApiList(): NodeApi[] {
 
 export function getNodeApi(): NodeApi {
   let nodeApi: NodeApi = {
-    key: '',
+    id: '',
     nodeName: '',
     apiHost: process.env.REACT_APP_ANT_HOST || 'http://localhost:1633',
     debugApiHost: process.env.REACT_APP_ANT_DEBUG_HOST || 'http://localhost:1635',
   }
   const nodeApiList: NodeApi[] = getNodeApiList()
-  const key = localStorage.acitve_node_api_key || ''
+  const id = localStorage.acitve_node_api_key || ''
 
   for (let i = 0; i < nodeApiList.length; i++) {
-    if (nodeApiList[i].key === key) {
+    if (nodeApiList[i].id === id) {
       nodeApi = nodeApiList[i]
       break
     }
   }
 
-  if (nodeApiList.length > 0 && !nodeApi.key) {
+  if (nodeApiList.length > 0 && !nodeApi.id) {
     nodeApi = nodeApiList[0]
-    localStorage.acitve_node_api_key = nodeApi.key
+    localStorage.acitve_node_api_key = nodeApi.id
   }
 
   return nodeApi
 }
 
 export function updateNodeApi({
-  key,
+  id,
   nodeName,
   apiHost,
   debugApiHost,
+  setActive = true,
 }: {
-  key?: string
+  id?: string
   nodeName: string
   apiHost: string
   debugApiHost: string
+  setActive?: boolean
 }): NodeApi {
   const nodeApiList: NodeApi[] = getNodeApiList()
 
   const data: NodeApi = {
-    key: key || '',
+    id: id || '',
     nodeName: nodeName.trim() ? nodeName.trim() : `node${nodeApiList.length + 1}`,
     apiHost: apiHost.trim(),
     debugApiHost: debugApiHost.trim(),
   }
 
-  if (key) {
+  if (id) {
     for (let i = 0; i < nodeApiList.length; i++) {
-      if (nodeApiList[i].key === key) {
+      if (nodeApiList[i].id === id) {
         nodeApiList[i] = data
         break
       }
     }
   } else {
-    data.key = uuid2()
+    data.id = uuid2()
     nodeApiList.push(data)
   }
 
   localStorage.node_api = JSON.stringify(nodeApiList)
-  localStorage.acitve_node_api_key = data.key
+
+  if (setActive) localStorage.acitve_node_api_key = data.id
 
   return data
 }
 
-export function removeNodeApi(key: string): void {
+export function removeNodeApi(id: string): void {
   const nodeApiList: NodeApi[] = getNodeApiList()
 
   for (let i = 0; i < nodeApiList.length; i++) {
-    if (nodeApiList[i].key === key) {
+    if (nodeApiList[i].id === id) {
       nodeApiList.splice(i, 1)
       break
     }
   }
 
   localStorage.node_api = JSON.stringify(nodeApiList)
+}
+
+export function setAcitveNodeApi(key: string): void {
+  localStorage.acitve_node_api_key = key
+}
+
+// const urlReg = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i
+const urlReg = /^https?:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/i
+
+export function isUrl(url: string): boolean {
+  return urlReg.test(url)
 }

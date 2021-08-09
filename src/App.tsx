@@ -9,7 +9,7 @@ import { SnackbarProvider } from 'notistack'
 import BaseRouter from './routes/routes'
 import { lightTheme, darkTheme } from './theme'
 import { Provider as StampsProvider } from './providers/Stamps'
-import { Provider as ApplicationProvider } from './providers/Stamps'
+import { Provider as ApplicationProvider } from './providers/Application'
 // import useTheme from './hooks/useTheme'
 
 export const Context = createContext<{ theme: string; updater?: () => void }>({ theme: 'dark' })
