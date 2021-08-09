@@ -5,6 +5,8 @@ import { createMuiTheme, Theme } from '@material-ui/core/styles'
 import { makeStyles } from '@material-ui/styles'
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined'
 import DoneIcon from '@material-ui/icons/Done'
+import Snackbar from '@material-ui/core/Snackbar'
+import Alert from '@material-ui/lab/Alert'
 import { updateNodeApi, removeNodeApi, isUrl, setAcitveNodeApi } from '../../utils'
 import useApplication from '../../hooks/useApplication'
 
@@ -64,9 +66,10 @@ type InputInfo = {
 
 function CurrentNode() {
   const [refreshVisibility, toggleRefreshVisibility] = useState(false)
-  const { nodeApi } = useApplication()
+  const { nodeApi, exist } = useApplication()
   const [nodeName, setNodeName] = useState(nodeApi.nodeName)
   const [host, setHost] = useState(nodeApi.apiHost)
+  const [debugHost, setDebugHost] = useState(nodeApi.debugApiHost)
   const [hostInfo, setHostInfo] = useState<InputInfo>({
     error: false,
     helperText: '',
@@ -75,22 +78,51 @@ function CurrentNode() {
     error: false,
     helperText: '',
   })
-  const [debugHost, setDebugHost] = useState(nodeApi.debugApiHost)
   const handleRemoveNodeApi = () => {
     removeNodeApi(nodeApi.id)
     window.location.reload()
   }
+  const [showAlert, setShowAlert] = useState<string>('')
+  const [showSuccess, setShowSuccess] = useState<string>('')
   const handleNewHostConnection = (isAdd: boolean) => {
-    if (host || debugHost || nodeName) {
-      updateNodeApi({
-        id: isAdd ? '' : nodeApi.id,
-        nodeName,
-        apiHost: host,
-        debugApiHost: debugHost,
-      })
-      // toggleRefreshVisibility(!refreshVisibility)
-      window.location.reload()
+    if (isAdd) {
+      if (exist('nodeName', nodeName)) {
+        setShowAlert('Node name already exists')
+
+        return
+      } else if (exist('apiHost', host)) {
+        setShowAlert('API endpoint already exists')
+
+        return
+      } else if (exist('debugApiHost', debugHost)) {
+        setShowAlert('Debug API endpoint already exists')
+
+        return
+      }
+    } else {
+      if (exist('nodeName', nodeName, nodeApi.id)) {
+        setShowAlert('Node name already exists')
+
+        return
+      } else if (exist('apiHost', host, nodeApi.id)) {
+        setShowAlert('API endpoint already exists')
+
+        return
+      } else if (exist('debugApiHost', debugHost, nodeApi.id)) {
+        setShowAlert('Debug API endpoint already exists')
+
+        return
+      }
     }
+    updateNodeApi({
+      id: isAdd ? '' : nodeApi.id,
+      nodeName,
+      apiHost: host,
+      debugApiHost: debugHost,
+    })
+    // toggleRefreshVisibility(!refreshVisibility)
+    setShowSuccess(isAdd ? 'Add success' : 'Set success')
+    window.location.reload()
   }
 
   const error = hostInfo.error || debugHostInfo.error
@@ -101,7 +133,7 @@ function CurrentNode() {
         <TextField
           label="Node Name"
           style={{ margin: 0 }}
-          placeholder="Any non-empty string（ex: node01、node02 ...）"
+          placeholder="Any non-empty string（ex: node1、node2 ...）"
           helperText="Enter node name"
           fullWidth
           defaultValue={nodeName}
@@ -197,7 +229,6 @@ function CurrentNode() {
           variant="filled"
         />
       </Paper>
-
       <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button variant="contained" color="primary" onClick={() => handleNewHostConnection(false)} disabled={error}>
@@ -218,12 +249,32 @@ function CurrentNode() {
           )}
         </div>
       </div>
+      <Snackbar
+        open={Boolean(showAlert)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+        onClose={() => {
+          setShowAlert('')
+        }}
+      >
+        <Alert severity="error">{showAlert}</Alert>
+      </Snackbar>
+      <Snackbar
+        open={Boolean(showSuccess)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+        onClose={() => {
+          setShowSuccess('')
+        }}
+      >
+        <Alert severity="success">{showSuccess}</Alert>
+      </Snackbar>
     </>
   )
 }
 
 function ManageNode() {
-  const { nodeApi, nodeApiList, refresh } = useApplication()
+  const { nodeApi, nodeApiList, refresh, exist } = useApplication()
   const [editRowsModel, setEditRowsModel] = useState<GridEditRowsModel>({})
   const classes = useStyles()
 
@@ -298,11 +349,19 @@ function ManageNode() {
         field = 'apiHost'
       } else if (updatedModel[id].debugApiHost) {
         field = 'debugApiHost'
+      } else if (updatedModel[id].nodeName) {
+        field = 'nodeName'
       }
 
       if (field) {
-        const isValid = isUrl(updatedModel[id][field].value as string)
-        updatedModel[id][field] = { ...updatedModel[id][field], error: !isValid }
+        const value = updatedModel[id][field].value as string
+        const isValid = isUrl(value)
+        updatedModel[id][field] = {
+          ...updatedModel[id][field],
+          error:
+            (field === 'nodeName' ? !value : !isValid) ||
+            exist(field as 'apiHost' | 'debugApiHost' | 'nodeName', value, id),
+        }
       }
     })
     // console.log(updatedModel)
