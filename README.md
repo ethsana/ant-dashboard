@@ -48,6 +48,8 @@ ant-dashboard
 
 This should open the webpage on [`http://localhost:8080`](http://localhost:8080)
 
+You can also use the online dashboard [`http://dashboard.ethsana.org/`](http://dashboard.ethsana.org/)
+
 ### Docker
 
 To build Docker image and run it, execute the following from inside project directory:
