@@ -1,4 +1,4 @@
-import { createTheme, Theme } from '@material-ui/core/styles'
+import { createMuiTheme, Theme } from '@material-ui/core/styles'
 import { orange } from '@material-ui/core/colors'
 
 declare module '@material-ui/core/styles/createPalette' {
@@ -55,7 +55,7 @@ const propsOverrides = {
   },
 }
 
-export const lightTheme = createTheme({
+export const lightTheme = createMuiTheme({
   palette: {
     type: 'light',
     background: {
@@ -79,7 +79,7 @@ export const lightTheme = createTheme({
   },
 })
 
-export const darkTheme = createTheme({
+export const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
     background: {
