@@ -123,7 +123,7 @@ export const useEarns = (): Earns => {
       isWork: false,
       isLoadingEarnsInfo,
       isLockup: false,
-      error: 'connected fail',
+      error,
     }
   }
 
@@ -139,6 +139,6 @@ export const useEarns = (): Earns => {
     isWork: Boolean(earnsInfo.work),
     isLoadingEarnsInfo,
     isLockup,
-    error: '',
+    error,
   }
 }
