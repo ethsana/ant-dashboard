@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState, useContext } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Paper, Container, TextField, Typography, Button, Tooltip, Tabs, Tab, Chip } from '@material-ui/core'
 import { DataGrid, GridColDef, GridEditRowsModel } from '@material-ui/data-grid'
 import { createMuiTheme, Theme } from '@material-ui/core/styles'
@@ -7,12 +7,13 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined'
 import DoneIcon from '@material-ui/icons/Done'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import { updateNodeApi, removeNodeApi, isUrl, setAcitveNodeApi } from '../../utils'
+import { updateNodeApi, removeNodeApi, isUrl, setAcitveNodeApi, NodeApi, uuid2 } from '../../utils'
 import useApplication from '../../hooks/useApplication'
+import { SaveAlt } from '@material-ui/icons'
 
 const defaultTheme = createMuiTheme()
 const useStyles = makeStyles(
-  (theme: Theme) => {
+  () => {
     const isDark = true
 
     return {
@@ -33,6 +34,78 @@ const useStyles = makeStyles(
 
 export default function Settings(): ReactElement {
   const [tab, setTab] = useState<number>(0)
+  const { nodeApiList, refresh } = useApplication()
+  const [showAlert, setShowAlert] = useState<string>('')
+  const [showSuccess, setShowSuccess] = useState<string>('')
+
+  function err(): void {
+    setShowAlert('No available data found')
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  function onChange(event: ChangeEventHandler<HTMLInputElement>) {
+    const reader = new FileReader()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    reader.onload = onReaderLoad
+    try {
+      reader.readAsText(event.target.files[0])
+    } catch (_) {
+      // err()
+    }
+  }
+
+  function onReaderLoad(event: { target: { result: string } }) {
+    try {
+      const arr: NodeApi[] = JSON.parse(event.target.result)
+      console.log(arr)
+
+      if (arr.constructor === Array) {
+        let result: NodeApi[] = []
+        arr.forEach(item => {
+          try {
+            const { nodeName, apiHost, debugApiHost } = item
+
+            if (isUrl(apiHost || '') && isUrl(debugApiHost || '')) {
+              result.push({
+                id: uuid2(),
+                nodeName: nodeName || '',
+                apiHost,
+                debugApiHost,
+              })
+            }
+          } catch (e) {
+            ///
+          }
+        })
+
+        const now = Date.now().toString().substring(0, 10)
+
+        result = result.map((item, index): NodeApi => {
+          if (!item.nodeName) {
+            item.nodeName = `imported${now}${index + 1}`
+          }
+
+          return item
+        })
+
+        if (result.length > 0) {
+          localStorage.node_api = JSON.stringify(nodeApiList.concat(result))
+          refresh()
+          setShowSuccess(`${result.length} node API(s) have been imported`)
+        } else {
+          err()
+        }
+
+        console.log(result)
+      } else {
+        err()
+      }
+    } catch (e) {
+      err()
+    }
+  }
 
   return (
     <div>
@@ -42,19 +115,76 @@ export default function Settings(): ReactElement {
         </Typography>
         <Typography variant="subtitle1">The data is stored locally, please do not clear the browser cache.</Typography>
         <div style={{ height: '20px' }} />
-        <Tabs
-          value={tab}
-          onChange={(_, newValue) => {
-            setTab(newValue)
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
-          <Tab label="connected node api" />
-          <Tab label="manage node api" />
-        </Tabs>
+          <Tabs
+            value={tab}
+            onChange={(_, newValue) => {
+              setTab(newValue)
+            }}
+          >
+            <Tab label="connected node api" />
+            <Tab label="manage node api" />
+          </Tabs>
+          <label
+            htmlFor="file"
+            style={{
+              display: 'block',
+              cursor: 'pointer',
+            }}
+          >
+            <input type="file" id="file" accept=".json" name="file" onChange={onChange} hidden />
+            <Tooltip
+              placement="left"
+              title={
+                <React.Fragment>
+                  <Typography color="inherit">Import Node API from json file</Typography>
+                  <em>eg:</em>
+                  <code>
+                    <p>[</p>
+                    <p>&nbsp;&nbsp;{'{'}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;nodeName&quot;:&nbsp;&quot;Not required&quot;,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;apiHost&quot;:&nbsp;&quot;http://localhost&quot;,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;debugApiHost&quot;:&nbsp;&quot;http://localhost&quot;</p>
+                    <p>&nbsp;&nbsp;{'}'}</p>
+                    <p>]</p>
+                  </code>
+                </React.Fragment>
+              }
+            >
+              <SaveAlt />
+            </Tooltip>
+          </label>
+        </div>
         <div style={{ height: '20px' }} />
         {tab === 0 && <CurrentNode />}
         {tab === 1 && <ManageNode />}
       </Container>
+      <Snackbar
+        open={Boolean(showAlert)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+        onClose={() => {
+          setShowAlert('')
+        }}
+      >
+        <Alert severity="error">{showAlert}</Alert>
+      </Snackbar>
+      <Snackbar
+        open={Boolean(showSuccess)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+        onClose={() => {
+          setShowSuccess('')
+        }}
+      >
+        <Alert severity="success">{showSuccess}</Alert>
+      </Snackbar>
     </div>
   )
 }
@@ -65,7 +195,6 @@ type InputInfo = {
 }
 
 function CurrentNode() {
-  const [refreshVisibility, toggleRefreshVisibility] = useState(false)
   const { nodeApi, exist } = useApplication()
   const [nodeName, setNodeName] = useState(nodeApi.nodeName)
   const [host, setHost] = useState(nodeApi.apiHost)
@@ -120,7 +249,6 @@ function CurrentNode() {
       apiHost: host,
       debugApiHost: debugHost,
     })
-    // toggleRefreshVisibility(!refreshVisibility)
     setShowSuccess(isAdd ? 'Add success' : 'Set success')
     window.location.reload()
   }
@@ -143,7 +271,6 @@ function CurrentNode() {
           }}
           onChange={e => {
             setNodeName(e.target.value)
-            toggleRefreshVisibility(true)
           }}
           variant="filled"
         />
@@ -183,7 +310,6 @@ function CurrentNode() {
                 helperText: 'Please enter node host',
               })
             }
-            // toggleRefreshVisibility(true)
           }}
           variant="filled"
         />
@@ -219,8 +345,6 @@ function CurrentNode() {
                 helperText: 'Please enter node host',
               })
             }
-
-            // toggleRefreshVisibility(true)
           }}
           margin="normal"
           InputLabelProps={{
