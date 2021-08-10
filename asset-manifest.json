@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/css/main.189bc6d4.chunk.css",
-    "main.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/js/main.c5efefc8.chunk.js",
-    "runtime-main.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/js/runtime-main.6256ecb3.js",
-    "static/js/2.5f80264b.chunk.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/js/2.5f80264b.chunk.js",
-    "static/js/3.4c38bbb3.chunk.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/js/3.4c38bbb3.chunk.js",
-    "index.html": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/index.html",
-    "static/js/2.5f80264b.chunk.js.LICENSE.txt": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/js/2.5f80264b.chunk.js.LICENSE.txt",
-    "static/media/App.css": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/media/WorkSans-VariableFont_wght.7655b042.ttf",
-    "static/media/sana-logo-dark.671b1352.svg": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/media/sana-logo-dark.671b1352.svg",
-    "static/media/sana-logo-light.710eb502.svg": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.4/static/media/sana-logo-light.710eb502.svg"
+    "main.css": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/css/main.8a2d90f3.chunk.css",
+    "main.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/js/main.a464f19c.chunk.js",
+    "runtime-main.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/js/runtime-main.74a53f7a.js",
+    "static/js/2.54d7ee9b.chunk.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/js/2.54d7ee9b.chunk.js",
+    "static/js/3.4c38bbb3.chunk.js": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/js/3.4c38bbb3.chunk.js",
+    "index.html": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/index.html",
+    "static/js/2.54d7ee9b.chunk.js.LICENSE.txt": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/js/2.54d7ee9b.chunk.js.LICENSE.txt",
+    "static/media/App.css": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/media/WorkSans-VariableFont_wght.7655b042.ttf",
+    "static/media/sana-logo-dark.671b1352.svg": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/media/sana-logo-dark.671b1352.svg",
+    "static/media/sana-logo-light.710eb502.svg": "https://cdn.jsdelivr.net/gh/ethsana/ant-dashboard@0.0.5/static/media/sana-logo-light.710eb502.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6256ecb3.js",
-    "static/js/2.5f80264b.chunk.js",
-    "static/css/main.189bc6d4.chunk.css",
-    "static/js/main.c5efefc8.chunk.js"
+    "static/js/runtime-main.74a53f7a.js",
+    "static/js/2.54d7ee9b.chunk.js",
+    "static/css/main.8a2d90f3.chunk.css",
+    "static/js/main.a464f19c.chunk.js"
   ]
 }
