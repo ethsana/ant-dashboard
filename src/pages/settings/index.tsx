@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { Paper, Container, TextField, Typography, Button, Tooltip, Tabs, Tab, Chip } from '@material-ui/core'
 import { DataGrid, GridColDef, GridEditRowsModel } from '@material-ui/data-grid'
-import { createMuiTheme, Theme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 import { makeStyles } from '@material-ui/styles'
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined'
 import DoneIcon from '@material-ui/icons/Done'
@@ -11,7 +11,7 @@ import { updateNodeApi, removeNodeApi, isUrl, setAcitveNodeApi, NodeApi, uuid2 }
 import useApplication from '../../hooks/useApplication'
 import { SaveAlt } from '@material-ui/icons'
 
-const defaultTheme = createMuiTheme()
+const defaultTheme = createTheme()
 const useStyles = makeStyles(
   () => {
     const isDark = true
