@@ -59,7 +59,6 @@ export default function Settings(): ReactElement {
   function onReaderLoad(event: { target: { result: string } }) {
     try {
       const arr: NodeApi[] = JSON.parse(event.target.result)
-      console.log(arr)
 
       if (arr.constructor === Array) {
         let result: NodeApi[] = []

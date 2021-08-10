@@ -61,7 +61,7 @@ export default function Status(): ReactElement {
         nodeAddresses={ethereumConnection.nodeAddresses}
       />
       {/* <NodeError isWork={mineStatus.isWork} isLoading={mineStatus.isLoadingEarnsInfo} /> */}
-      {!mineStatus.error && (
+      {mineStatus.error !== '404' && (
         <IconCard
           error={mineStatus.error}
           isLockup={mineStatus.isLockup}

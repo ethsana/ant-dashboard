@@ -444,7 +444,7 @@ export interface EarningsInformation {
 
 export const useEarnsInfo = () => {
   const [isLoadingEarnsInfo, setLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<string>('')
   const [earnsInfo, setEarnsInfo] = useState<EarningsInformation | null>({
     work: false,
     reward: '0',
@@ -462,8 +462,12 @@ export const useEarnsInfo = () => {
         .then(res => {
           setEarnsInfo(res?.data)
         })
-        .catch((error: Error) => {
-          setError(error)
+        .catch(error => {
+          if (error?.response?.status.toString() === '404') {
+            setError('404')
+          } else {
+            setError(error.toString())
+          }
           setEarnsInfo(null)
         })
         .finally(() => {
