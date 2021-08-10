@@ -33,7 +33,7 @@ export function makeBigNumber(value: BigNumber | BigInt | number | string): BigN
   throw new TypeError(`Not a BigNumber or BigNumber convertible value. Type: ${typeof value} value: ${value}`)
 }
 
-function uuid2(len = 16, radix?: number) {
+export function uuid2(len = 16, radix?: number): string {
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
   const uuid = []
   let i
