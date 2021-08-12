@@ -38,9 +38,7 @@ export default function EthereumAddress(props: Props): ReactElement {
                     }
                   : { marginRight: '7px' }
               }
-              href={`https://${props.network}.${process.env.REACT_APP_ETHERSCAN_HOST}/${
-                props.transaction ? 'tx' : 'address'
-              }/${props.address}`}
+              href={`https://${props.network}/${props.transaction ? 'tx' : 'address'}/${props.address}`}
               target="_blank"
               rel="noreferrer"
             >

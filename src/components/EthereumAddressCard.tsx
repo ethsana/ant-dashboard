@@ -51,7 +51,7 @@ function EthereumAddressCard(props: Props): ReactElement {
             <Typography variant="subtitle1" gutterBottom>
               Ethereum Address
             </Typography>
-            <EthereumAddress address={props.nodeAddresses?.ethereum} network={'goerli'} />
+            <EthereumAddress address={props.nodeAddresses?.ethereum} network={'blockscout.com/xdai/mainnet'} />
           </CardContent>
         </div>
       )}
@@ -66,7 +66,10 @@ function EthereumAddressCard(props: Props): ReactElement {
             <Typography variant="subtitle1" gutterBottom>
               Chequebook Contract Address
             </Typography>
-            <EthereumAddress address={props.chequebookAddress?.chequebookAddress} network={'goerli'} />
+            <EthereumAddress
+              address={props.chequebookAddress?.chequebookAddress}
+              network={'blockscout.com/xdai/mainnet'}
+            />
           </CardContent>
         </div>
       )}

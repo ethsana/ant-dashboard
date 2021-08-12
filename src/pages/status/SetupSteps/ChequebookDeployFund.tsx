@@ -26,9 +26,9 @@ const ChequebookDeployFund = ({
           <div>
             <span>
               Your chequebook is either not deployed or funded. Join{' '}
-              <a href="https://discord.gg/c72mpR7Erf">our discord channel</a>, get verified and send a message{' '}
-              <pre>sprinkle {ethereumAddress || '<YOUR ANT NODE ETH ADDRESS>'}</pre> in the <pre>#faucet-request</pre>{' '}
-              channel to get Goerli ETH and Goerli SANA token.
+              <a href="https://discord.gg/c72mpR7Erf" rel="noreferrer" target="_blank">
+                our discord channel
+              </a>
             </span>
           </div>
         )}
@@ -36,7 +36,7 @@ const ChequebookDeployFund = ({
       <Typography variant="subtitle1" gutterBottom>
         Chequebook Address
       </Typography>
-      <EthereumAddress address={chequebookAddress?.chequebookAddress} network={'goerli'} />
+      <EthereumAddress address={chequebookAddress?.chequebookAddress} network={'blockscout.com/xdai/mainnet'} />
     </div>
   )
 }

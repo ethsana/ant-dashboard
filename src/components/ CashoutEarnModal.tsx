@@ -101,7 +101,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
                 Hash:{' '}
                 <a
                   style={{ margin: '0 7px', fontSize: '14px' }}
-                  href={`https://goerli.${process.env.REACT_APP_ETHERSCAN_HOST}/tx/${txHash}`}
+                  href={`https://blockscout.com/xdai/mainnet/tx/${txHash}`}
                   target="_blank"
                   rel="noreferrer"
                 >

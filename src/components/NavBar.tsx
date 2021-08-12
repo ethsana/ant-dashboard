@@ -38,7 +38,7 @@ export default function SideBar(): ReactElement {
         <img src={themeMode === 'light' ? SanaLogoLight : SanaLogoDark} alt="sana logo" width="50" />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Chip style={{ marginLeft: '7px' }} size="small" label="Goerli" className={classes.network} />
+        <Chip style={{ marginLeft: '7px' }} size="small" label="xDai" className={classes.network} />
         {/* <div style={{ width: '100%' }}>
           <div style={{ float: 'right' }}>
             <IconButton style={{ marginRight: '10px' }} aria-label="dark-mode" onClick={clickTheme}>
