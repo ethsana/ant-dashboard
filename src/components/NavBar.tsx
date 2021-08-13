@@ -127,33 +127,8 @@ export default function SideBar(): ReactElement {
         <img src={themeMode === 'light' ? SanaLogoLight : SanaLogoDark} alt="sana logo" width="50" />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        {/* {nodeApiList.length > 1 && (
-          <Select
-            value={nodeApi.id}
-            onChange={event => {
-              localStorage.acitve_node_api_key = event.target.value
-              refresh()
-              window.location.reload()
-            }}
-          >
-            {nodeApiList.map(({ id, nodeName, apiHost, debugApiHost }) => {
-              return (
-                <MenuItem key={id} value={id}>
-                  {nodeName || apiHost || debugApiHost}
-                </MenuItem>
-              )
-            })}
-          </Select>
-        )} */}
         {nodeApiList.length > 0 && (
           <>
-            {/* <Button
-              style={{ marginLeft: '12px' }}
-              size="small"
-              label={nodeApi.nodeName || nodeApi.apiHost || nodeApi.debugApiHost}
-              className={classes.network}
-              onClick={handleClickOpen}
-            /> */}
             <span style={{ color: '#999' }}>Connected Node:</span>&nbsp;
             <Button onClick={handleClickOpen} style={{ textTransform: 'none' }} endIcon={<ArrowDropDown />}>
               <span style={{ marginRight: '-6px' }}>{nodeApi.nodeName || nodeApi.apiHost || nodeApi.debugApiHost}</span>
