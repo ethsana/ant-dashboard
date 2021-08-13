@@ -116,11 +116,7 @@ export default function FormDialog({ label }: Props): ReactElement {
             <DialogTitle id="form-dialog-title">Purchase new postage stamp</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Provide the depth, amount and optionally the label of the postage stamp. Please refer to the{' '}
-                <a href="https://docs.ethsana.org/" target="blank">
-                  official docs
-                </a>{' '}
-                to understand these values.
+                Provide the depth, amount and optionally the label of the postage stamp
               </DialogContentText>
               <Field
                 component={TextField}
