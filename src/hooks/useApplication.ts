@@ -1,3 +1,3 @@
 import { useContext } from 'react'
-import { Context } from '../providers/Application'
-export default () => useContext(Context)
+import { Context, ApplicationInterface } from '../providers/Application'
+export default (): ApplicationInterface => useContext(Context)
