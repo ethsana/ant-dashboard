@@ -248,7 +248,7 @@ function CurrentNode() {
       apiHost: host,
       debugApiHost: debugHost,
     })
-    setShowSuccess(isAdd ? 'Add success' : 'Set success')
+    setShowSuccess(isAdd ? 'Add success' : 'Update success')
     window.location.reload()
   }
 
@@ -355,7 +355,7 @@ function CurrentNode() {
       <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button variant="contained" color="primary" onClick={() => handleNewHostConnection(false)} disabled={error}>
-            set
+            update
           </Button>
           <div style={{ width: '30px' }} />
           <Button variant="contained" color="primary" onClick={() => handleNewHostConnection(true)} disabled={error}>
