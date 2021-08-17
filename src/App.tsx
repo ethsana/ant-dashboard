@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState, createContext } from 'react'
+import { ReactElement, createContext } from 'react'
 import { HashRouter as Router } from 'react-router-dom'
 import './App.css'
 
@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { SnackbarProvider } from 'notistack'
 
 import BaseRouter from './routes/routes'
-import { lightTheme, darkTheme } from './theme'
+import { darkTheme } from './theme'
 import { Provider as StampsProvider } from './providers/Stamps'
 import { Provider as ApplicationProvider } from './providers/Application'
 // import useTheme from './hooks/useTheme'
@@ -15,7 +15,7 @@ import { Provider as ApplicationProvider } from './providers/Application'
 export const Context = createContext<{ theme: string; updater?: () => void }>({ theme: 'dark' })
 
 const App = (): ReactElement => {
-  const [theme, setTheme] = useState('dark')
+  // const [theme] = useState('dark')
 
   // const switchTheme = () => {
   //   const _nextTheme = theme === 'light' ? 'dark' : 'light'
@@ -27,10 +27,10 @@ const App = (): ReactElement => {
 
   return (
     <ApplicationProvider>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <ThemeProvider theme={darkTheme}>
         <StampsProvider>
           <SnackbarProvider>
-            <Context.Provider value={{ theme }}>
+            <Context.Provider value={{ theme: 'dark' }}>
               <CssBaseline />
               <Router>
                 <BaseRouter />

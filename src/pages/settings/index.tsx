@@ -149,6 +149,7 @@ export default function Settings(): ReactElement {
                     <p>[</p>
                     <p>&nbsp;&nbsp;{'{'}</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;nodeName&quot;:&nbsp;&quot;Not required&quot;,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;authorization&quot;:&nbsp;&quot;Not required&quot;,</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;apiHost&quot;:&nbsp;&quot;http://localhost&quot;,</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;debugApiHost&quot;:&nbsp;&quot;http://localhost&quot;</p>
                     <p>&nbsp;&nbsp;{'}'}</p>
