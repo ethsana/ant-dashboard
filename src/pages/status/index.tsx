@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement } from 'react'
 import { Container, CircularProgress } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
