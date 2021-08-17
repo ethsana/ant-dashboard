@@ -72,7 +72,7 @@ export default function Settings(): ReactElement {
                 nodeName: nodeName || '',
                 apiHost,
                 debugApiHost,
-                authorizationCode,
+                authorizationCode: authorizationCode || '',
               })
             }
           } catch (e) {
@@ -149,7 +149,9 @@ export default function Settings(): ReactElement {
                     <p>[</p>
                     <p>&nbsp;&nbsp;{'{'}</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;nodeName&quot;:&nbsp;&quot;Not required&quot;,</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;authorization&quot;:&nbsp;&quot;Not required&quot;,</p>
+                    <p style={{ whiteSpace: 'nowrap' }}>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&quot;authorizationCode&quot;:&nbsp;&quot;Not required&quot;,
+                    </p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;apiHost&quot;:&nbsp;&quot;http://localhost&quot;,</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&quot;debugApiHost&quot;:&nbsp;&quot;http://localhost&quot;</p>
                     <p>&nbsp;&nbsp;{'}'}</p>
