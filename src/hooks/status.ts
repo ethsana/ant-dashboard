@@ -138,7 +138,7 @@ export const useEarns = (): Earns => {
     totalEarns,
     isWork: Boolean(earnsInfo.work),
     isLoadingEarnsInfo,
-    isLockup,
+    isLockup: !Boolean(earnsInfo.work) || isLockup,
     error,
   }
 }

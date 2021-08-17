@@ -10,7 +10,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import axios from 'axios'
 import { useSnackbar } from 'notistack'
 import { Context as ApplicationContext, ApplicationInterface } from '../providers/Application'
-import { NodeApi } from '../utils'
 
 let lock = false
 
@@ -39,7 +38,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
 
     const url = nodeApi.debugApiHost
     axios
-      .post(`${url}/mine/cashdeposit`)
+      .post(`${url}/mine/cashdeposit`, {}, { headers: { Authorization: nodeApi.authorizationCode } })
       .then(({ data }) => {
         setHash(data.hash)
         setError(data.hash ? false : true)

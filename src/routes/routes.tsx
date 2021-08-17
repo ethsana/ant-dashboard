@@ -13,7 +13,7 @@ import Peers from '../pages/peers'
 import Accounting from '../pages/accounting'
 import Settings from '../pages/settings'
 import Stamps from '../pages/stamps'
-import ConfigNodes from '../pages/ confignodes'
+// import ConfigNodes from '../pages/confignodes'
 
 const BaseRouter = (): ReactElement => (
   <Switch>

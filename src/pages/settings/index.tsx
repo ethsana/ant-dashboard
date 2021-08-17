@@ -64,7 +64,7 @@ export default function Settings(): ReactElement {
         let result: NodeApi[] = []
         arr.forEach(item => {
           try {
-            const { nodeName, apiHost, debugApiHost } = item
+            const { nodeName, apiHost, debugApiHost, authorizationCode } = item
 
             if (isUrl(apiHost || '') && isUrl(debugApiHost || '')) {
               result.push({
@@ -72,6 +72,7 @@ export default function Settings(): ReactElement {
                 nodeName: nodeName || '',
                 apiHost,
                 debugApiHost,
+                authorizationCode,
               })
             }
           } catch (e) {
@@ -198,6 +199,8 @@ function CurrentNode() {
   const [nodeName, setNodeName] = useState(nodeApi.nodeName)
   const [host, setHost] = useState(nodeApi.apiHost)
   const [debugHost, setDebugHost] = useState(nodeApi.debugApiHost)
+  const [authorizationCode, setAuthorization] = useState(nodeApi?.authorizationCode)
+
   const [hostInfo, setHostInfo] = useState<InputInfo>({
     error: false,
     helperText: '',
@@ -206,12 +209,14 @@ function CurrentNode() {
     error: false,
     helperText: '',
   })
+
   const handleRemoveNodeApi = () => {
     removeNodeApi(nodeApi.id)
     window.location.reload()
   }
   const [showAlert, setShowAlert] = useState<string>('')
   const [showSuccess, setShowSuccess] = useState<string>('')
+
   const handleNewHostConnection = (isAdd: boolean) => {
     if (isAdd) {
       if (exist('nodeName', nodeName)) {
@@ -247,6 +252,7 @@ function CurrentNode() {
       nodeName,
       apiHost: host,
       debugApiHost: debugHost,
+      authorizationCode,
     })
     setShowSuccess(isAdd ? 'Add success' : 'Update success')
     window.location.reload()
@@ -272,6 +278,26 @@ function CurrentNode() {
             setNodeName(e.target.value)
           }}
           variant="filled"
+        />
+      </Paper>
+      <Paper style={{ marginTop: '20px' }}>
+        <TextField
+          label="Authoriztion"
+          style={{ margin: 0 }}
+          placeholder="Enter node dashboard-authorization(optional)"
+          fullWidth
+          defaultValue={authorizationCode}
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={({ target: { value } }) => {
+            setAuthorization(value.trim())
+          }}
+          variant="filled"
+          helperText={
+            'If your sana.yaml is configured with dashboard-authorization, please enter the value here, otherwise you will not be able to connect to the node(ant-linux-amd64>0.1.0)'
+          }
         />
       </Paper>
       <Paper style={{ marginTop: '20px' }}>
@@ -401,23 +427,32 @@ function ManageNode() {
   const [editRowsModel, setEditRowsModel] = useState<GridEditRowsModel>({})
   const classes = useStyles()
 
+  console.log('nodeApiList', nodeApiList)
+
   const columns: GridColDef[] = [
     {
       field: 'nodeName',
       headerName: 'Node Name',
-      width: 200,
+      width: 210,
+      editable: true,
+    },
+    {
+      field: 'authorizationCode',
+      headerName: 'Authorization',
+      width: 210,
       editable: true,
     },
     {
       field: 'apiHost',
       headerName: 'Api Endpoint',
-      width: 340,
+      width: 290,
       editable: true,
     },
+
     {
       field: 'debugApiHost',
       headerName: 'Debug Api Endpoint',
-      width: 340,
+      width: 290,
       editable: true,
     },
     {

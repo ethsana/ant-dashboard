@@ -36,7 +36,7 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
     lock = true
     setPending(true)
     axios
-      .post(`${nodeApi.debugApiHost}/mine/withdraw`)
+      .post(`${nodeApi.debugApiHost}/mine/withdraw`, {}, { headers: { Authorization: nodeApi.authorizationCode } })
       .then(({ data }) => {
         if (Boolean(data?.code)) {
           enqueueSnackbar(`Cashout: ${data?.message}`, { variant: 'error' })

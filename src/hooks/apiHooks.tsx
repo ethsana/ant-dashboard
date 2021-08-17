@@ -15,7 +15,7 @@ import axios from 'axios'
 import { Token } from '../models/Token'
 // import { resolve } from 'node:path'
 import { Context as ApplicationContext, ApplicationInterface } from '../providers/Application'
-import { NodeApi } from '../utils'
+// import { NodeApi } from '../utils'
 
 export interface HealthHook {
   health: boolean
@@ -458,7 +458,11 @@ export const useEarnsInfo = () => {
     const fetch = () => {
       setLoading(true)
       axios
-        .get(`${nodeApi.debugApiHost}/mine/status`)
+        .get(`${nodeApi.debugApiHost}/mine/status`, {
+          headers: {
+            Authorization: nodeApi.authorizationCode || '',
+          },
+        })
         .then(res => {
           setEarnsInfo(res?.data)
         })

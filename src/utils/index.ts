@@ -68,19 +68,21 @@ export type NodeApi = {
   nodeName: string
   apiHost: string
   debugApiHost: string
+  authorizationCode: string
 }
 
 export function getNodeApiList(): NodeApi[] {
   const nodeApi: NodeApi[] = []
   try {
     const arr: NodeApi[] = JSON.parse(localStorage.node_api)
-    arr.forEach(({ id, nodeName, apiHost, debugApiHost }, index) => {
+    arr.forEach(({ id, nodeName, apiHost, debugApiHost, authorizationCode }, index) => {
       if (id) {
         const node: NodeApi = {
           id,
           nodeName: nodeName ? nodeName.toString().trim() : `node${index}`,
           apiHost: apiHost ? apiHost.toString().trim() : '',
           debugApiHost: debugApiHost ? debugApiHost.toString().trim() : '',
+          authorizationCode: authorizationCode ? authorizationCode.toString().trim() : '',
         }
 
         nodeApi.push(node)
@@ -99,6 +101,7 @@ export function getNodeApi(): NodeApi {
     nodeName: '',
     apiHost: process.env.REACT_APP_ANT_HOST || 'http://localhost:1633',
     debugApiHost: process.env.REACT_APP_ANT_DEBUG_HOST || 'http://localhost:1635',
+    authorizationCode: '',
   }
   const nodeApiList: NodeApi[] = getNodeApiList()
   const id = localStorage.acitve_node_api_key || ''
@@ -123,12 +126,14 @@ export function updateNodeApi({
   nodeName,
   apiHost,
   debugApiHost,
+  authorizationCode,
   setActive = true,
 }: {
   id?: string
   nodeName: string
   apiHost: string
   debugApiHost: string
+  authorizationCode: string
   setActive?: boolean
 }): NodeApi {
   const nodeApiList: NodeApi[] = getNodeApiList()
@@ -138,6 +143,7 @@ export function updateNodeApi({
     nodeName: nodeName.trim() ? nodeName.trim() : `node${nodeApiList.length + 1}`,
     apiHost: apiHost.trim(),
     debugApiHost: debugApiHost.trim(),
+    authorizationCode: authorizationCode.trim(),
   }
 
   if (id) {
