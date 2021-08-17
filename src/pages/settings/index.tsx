@@ -428,8 +428,6 @@ function ManageNode() {
   const [editRowsModel, setEditRowsModel] = useState<GridEditRowsModel>({})
   const classes = useStyles()
 
-  console.log('nodeApiList', nodeApiList)
-
   const columns: GridColDef[] = [
     {
       field: 'nodeName',
