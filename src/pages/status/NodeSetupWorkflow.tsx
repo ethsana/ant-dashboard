@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState, useMemo, useContext } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Typography, Paper, Button, Step, StepLabel, StepContent, Stepper, StepButton } from '@material-ui/core/'
 import { CheckCircle, Error, Sync, ExpandLessSharp, ExpandMoreSharp, Autorenew } from '@material-ui/icons/'
@@ -11,7 +11,6 @@ import ChequebookDeployFund from './SetupSteps/ChequebookDeployFund'
 import PeerConnection from './SetupSteps/PeerConnection'
 import SetNodeAuthorization from './SetupSteps/SetNodeAuthorization'
 import { StatusChequebookHook } from '../../hooks/status'
-import { Context as ApplicationContext, ApplicationInterface } from '../../providers/Application'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +54,6 @@ export default function NodeSetupWorkflow({
 }: Props): ReactElement {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(-1)
-  const { nodeApi } = useContext<ApplicationInterface>(ApplicationContext)
 
   const steps: Step[] = [
     {
@@ -66,7 +64,7 @@ export default function NodeSetupWorkflow({
     },
     {
       label: 'Setting Node Authorization',
-      isOk: nodeVersion.isOk && Boolean(nodeApi.authorizationCode),
+      isOk: nodeVersion.isOk,
       isLoading: nodeVersion.isLoading,
       component: <SetNodeAuthorization />,
     },

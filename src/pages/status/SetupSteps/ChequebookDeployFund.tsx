@@ -8,21 +8,19 @@ interface Props extends StatusChequebookHook {
   ethereumAddress?: string
 }
 
-const ChequebookDeployFund = ({
-  isLoading,
-  chequebookAddress,
-  chequebookBalance,
-  ethereumAddress,
-}: Props): ReactElement | null => {
+const ChequebookDeployFund = ({ isLoading, chequebookAddress, chequebookBalance }: Props): ReactElement | null => {
   if (isLoading) return null
 
   return (
     <div>
-      <p style={{ marginBottom: '20px', display: 'flex' }}>
-        {chequebookAddress?.chequebookAddress && <DepositModal />}
-      </p>
+      {chequebookAddress?.chequebookAddress && chequebookBalance?.totalBalance.toBigNumber.isGreaterThan(0) && (
+        <p style={{ marginBottom: '20px', display: 'flex' }}>
+          <DepositModal />
+        </p>
+      )}
+
       <div style={{ marginBottom: '10px' }}>
-        {!(chequebookAddress?.chequebookAddress && chequebookBalance?.totalBalance.toBigNumber.isGreaterThan(0)) && (
+        {!chequebookAddress?.chequebookAddress && (
           <div>
             <span>
               Your chequebook is either not deployed or funded. Join{' '}

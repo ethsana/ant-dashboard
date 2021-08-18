@@ -90,13 +90,11 @@ export const useStatusTopology = (): StatusTopologyHook => {
 export const useStatusChequebook = (): StatusChequebookHook => {
   const { chequebookAddress, isLoadingChequebookAddress } = useApiChequebookAddress()
   const { chequebookBalance, isLoadingChequebookBalance } = useApiChequebookBalance()
+  // chequebookBalance?.totalBalance.toBigNumber.isGreaterThan(0),
 
   return {
     isLoading: isLoadingChequebookAddress || isLoadingChequebookBalance,
-    isOk:
-      Boolean(chequebookAddress?.chequebookAddress) &&
-      chequebookBalance !== null &&
-      chequebookBalance?.totalBalance.toBigNumber.isGreaterThan(0),
+    isOk: Boolean(chequebookAddress?.chequebookAddress),
     chequebookBalance,
     chequebookAddress,
   }
