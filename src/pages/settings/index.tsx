@@ -54,6 +54,7 @@ export default function Settings(): ReactElement {
     } catch (_) {
       // err()
     }
+    event.target.value = ''
   }
 
   function onReaderLoad(event: { target: { result: string } }) {

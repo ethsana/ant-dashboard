@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Toolbar, Chip, TextField, DialogContent, DialogTitle, Button, Dialog } from '@material-ui/core/'
-import { ArrowDropDown } from '@material-ui/icons/'
+import { Toolbar, Chip, TextField, DialogContent, DialogTitle, Button, Dialog, IconButton } from '@material-ui/core/'
+import { ArrowDropDown, Close } from '@material-ui/icons/'
 import DoneIcon from '@material-ui/icons/Done'
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
 import { setAcitveNodeApi } from '../utils'
@@ -134,7 +134,15 @@ export default function SideBar(): ReactElement {
               <span style={{ marginRight: '-6px' }}>{nodeApi.nodeName || nodeApi.apiHost || nodeApi.debugApiHost}</span>
             </Button>
             <Dialog open={showNodeModel} onClose={handleClose} maxWidth="md" fullWidth>
-              <DialogTitle>Change Node API</DialogTitle>
+              <DialogTitle
+                style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}
+                disableTypography
+              >
+                <h2>Change Node API</h2>
+                <IconButton style={{ marginRight: '-15px' }} onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </DialogTitle>
               <DialogContent>
                 <div
                   style={{
