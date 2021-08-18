@@ -286,7 +286,7 @@ function CurrentNode() {
       </Paper>
       <Paper style={{ marginTop: '20px' }}>
         <TextField
-          label="Authoriztion"
+          label="Authorization"
           style={{ margin: 0 }}
           placeholder="Enter node dashboard-authorization(optional)"
           fullWidth
@@ -435,26 +435,25 @@ function ManageNode() {
     {
       field: 'nodeName',
       headerName: 'Node Name',
-      width: 210,
+      width: 180,
       editable: true,
     },
     {
       field: 'authorizationCode',
       headerName: 'Authorization',
-      width: 210,
+      width: 180,
       editable: true,
     },
     {
       field: 'apiHost',
       headerName: 'Api Endpoint',
-      width: 290,
+      width: 260,
       editable: true,
     },
-
     {
       field: 'debugApiHost',
       headerName: 'Debug Api Endpoint',
-      width: 290,
+      width: 260,
       editable: true,
     },
     {
