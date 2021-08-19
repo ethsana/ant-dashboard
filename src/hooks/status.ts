@@ -27,10 +27,10 @@ export const useStatusNodeVersion = (): StatusNodeVersionHook => {
 
   const isLatestBeeVersion = Boolean(
     latestVersion &&
-    latestUserVersion &&
-    semver.satisfies(latestVersion, latestUserVersion, {
-      includePrerelease: true,
-    }),
+      latestUserVersion &&
+      semver.satisfies(latestVersion, latestUserVersion, {
+        includePrerelease: true,
+      }),
   )
 
   return {
