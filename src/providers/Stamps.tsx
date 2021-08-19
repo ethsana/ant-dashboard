@@ -1,4 +1,4 @@
-import { PostageBatch } from '@ethersphere/bee-js'
+import { PostageBatch } from '@ethersana/ant-js'
 import { createContext, ReactChild, ReactElement, useEffect, useState } from 'react'
 import { beeApi } from '../services/bee'
 

@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Paper, InputBase, IconButton, FormHelperText } from '@material-ui/core'
 import { Search } from '@material-ui/icons'
 import { apiHost } from '../../constants'
-import { Utils } from '@ethersphere/bee-js'
+import { Utils } from '@ethersana/ant-js'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

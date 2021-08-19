@@ -2,10 +2,9 @@ import React, { ReactElement } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
-import { Button, colors } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import CashoutEarnModal from '../../components/ CashoutEarnModal'
 import CashoutDespositModal from '../../components/CashoutDespositModal'
-// import { Container } from '@material-ui/core'
 import { Sync } from '@material-ui/icons/'
 import { Token } from '../../models/Token'
 
@@ -55,10 +54,11 @@ interface IncomeProps {
   pending: Token
   isWork: boolean
   totalEarns: Token
+  deposit?: Token | null
   error: string
 }
 
-function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: IncomeProps): ReactElement {
+function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns, deposit }: IncomeProps): ReactElement {
   const classes = useStyles()
 
   return (
@@ -68,7 +68,7 @@ function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: Inc
           <Card className={classes.card}>
             <div className={classes.span}>
               <span className={classes.label}>Amount of SANA deposits</span>
-              <span className={classes.val}>{isWork ? '50,000' : '0'}</span>
+              <span className={classes.val}>{isWork ? (deposit ? deposit.toFixedDecimal() : '50000') : '--'}</span>
             </div>
             <div className={classes.span}>
               <span className={classes.label}>Miner Node Status</span>
@@ -106,11 +106,15 @@ function IcomeCard({ error, isLockup, isWork, pending, reward, totalEarns }: Inc
           <Card className={classes.card}>
             <div className={classes.span}>
               <span className={classes.label}>Frozen SANA</span>
-              <span className={classes.val}>{isWork ? (isLockup ? '50,000' : '0') : '0'}</span>
+              <span className={classes.val}>
+                {isWork ? (isLockup ? (deposit ? deposit.toFixedDecimal() : '50,000') : '0') : '--'}
+              </span>
             </div>
             <div className={classes.span}>
               <span className={classes.label}>Unfrozen SANA</span>
-              <span className={classes.val}> {isWork ? (isLockup ? '0' : '50,000') : '0'}</span>
+              <span className={classes.val}>
+                {isWork ? (!isLockup ? (deposit ? deposit.toFixedDecimal() : '50,000') : 0) : '--'}
+              </span>
             </div>
           </Card>
         </Grid>

@@ -8,7 +8,7 @@ import {
   Peer,
   Topology,
   LastChequesForPeerResponse,
-} from '@ethersphere/bee-js'
+} from '@ethersana/ant-js'
 
 import { beeDebugApi, beeApi } from '../services/bee'
 import axios from 'axios'
@@ -437,6 +437,7 @@ export interface EarningsInformation {
   work: boolean
   reward: string
   pending: string
+  deposit?: string
   expire: string
   code?: number | string | null
   message?: string | undefined | null

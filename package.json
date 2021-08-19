@@ -1,6 +1,6 @@
 {
     "name": "ant-dashboard",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "An app which helps users to setup their ant node and do actions like cash out cheques,receive earnings",
     "keywords": [
         "ant",
@@ -24,7 +24,7 @@
         "url": "git+https://github.com/ethsana/ant-dashboard.git"
     },
     "dependencies": {
-        "@ethersphere/bee-js": "^1.0.0",
+        "@ethersana/ant-js": "^1.0.1",
         "@material-ui/core": "^4.11.4",
         "@material-ui/data-grid": "^4.0.0-alpha.36",
         "@material-ui/icons": "^4.11.2",

@@ -9,7 +9,8 @@ import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
 import { updateNodeApi, removeNodeApi, isUrl, setAcitveNodeApi, NodeApi, uuid2 } from '../../utils'
 import useApplication from '../../hooks/useApplication'
-import { SaveAlt } from '@material-ui/icons'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import { doc } from 'prettier'
 
 const defaultTheme = createTheme()
 const useStyles = makeStyles(
@@ -83,13 +84,15 @@ export default function Settings(): ReactElement {
 
         const now = Date.now().toString().substring(0, 10)
 
-        result = result.map((item, index): NodeApi => {
-          if (!item.nodeName) {
-            item.nodeName = `imported${now}${index + 1}`
-          }
+        result = result.map(
+          (item, index): NodeApi => {
+            if (!item.nodeName) {
+              item.nodeName = `imported${now}${index + 1}`
+            }
 
-          return item
-        })
+            return item
+          },
+        )
 
         if (result.length > 0) {
           localStorage.node_api = JSON.stringify(nodeApiList.concat(result))
@@ -161,7 +164,17 @@ export default function Settings(): ReactElement {
                 </React.Fragment>
               }
             >
-              <SaveAlt />
+              {/* <SaveAlt /> */}
+              <Button
+                variant="contained"
+                color="primary"
+                endIcon={<CloudUploadIcon />}
+                onClick={() => {
+                  document.getElementById('file')?.click()
+                }}
+              >
+                Import
+              </Button>
             </Tooltip>
           </label>
         </div>
@@ -286,7 +299,7 @@ function CurrentNode() {
       </Paper>
       <Paper style={{ marginTop: '20px' }}>
         <TextField
-          label="Authoriztion"
+          label="Authorization"
           style={{ margin: 0 }}
           placeholder="Enter node dashboard-authorization(optional)"
           fullWidth
@@ -552,7 +565,7 @@ function ManageNode() {
         // editRowsModel={editRowsModel}
         onEditRowsModelChange={handleEditRowsModelChange}
         onCellEditCommit={data => {
-          const { row, field, value } = data as unknown as { row: any; field: string; value: string }
+          const { row, field, value } = (data as unknown) as { row: any; field: string; value: string }
           updateNodeApi({
             ...row,
             [field]: value,

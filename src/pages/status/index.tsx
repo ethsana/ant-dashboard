@@ -63,6 +63,7 @@ export default function Status(): ReactElement {
       {/* <NodeError isWork={mineStatus.isWork} isLoading={mineStatus.isLoadingEarnsInfo} /> */}
       {mineStatus.error !== '404' && (
         <IconCard
+          deposit={mineStatus.deposit}
           error={mineStatus.error}
           isLockup={mineStatus.isLockup}
           isWork={mineStatus.isWork}

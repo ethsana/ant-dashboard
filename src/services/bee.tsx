@@ -19,7 +19,7 @@ import {
   PostageBatchOptions,
   Reference,
   Topology,
-} from '@ethersphere/bee-js'
+} from '@ethersana/ant-js'
 import { apiHost, debugApiHost } from '../constants'
 
 const beeJSClient = () => new Bee(apiHost)

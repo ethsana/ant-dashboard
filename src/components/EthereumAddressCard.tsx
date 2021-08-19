@@ -6,7 +6,7 @@ import { Card, CardContent, Typography } from '@material-ui/core/'
 import EthereumAddress from '../components/EthereumAddress'
 import { Skeleton } from '@material-ui/lab'
 
-import type { ChequebookAddressResponse, NodeAddresses } from '@ethersphere/bee-js'
+import type { ChequebookAddressResponse, NodeAddresses } from '@ethersana/ant-js'
 
 const useStyles = makeStyles(() =>
   createStyles({

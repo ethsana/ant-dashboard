@@ -15,7 +15,7 @@ import {
 import { OpenInNewSharp } from '@material-ui/icons'
 import { Activity, FileText, DollarSign, Share2, Settings, Layers, Folder } from 'react-feather'
 
-import { Health } from '@ethersphere/bee-js'
+import { Health } from '@ethersana/ant-js'
 import PublishSharpIcon from '@material-ui/icons/PublishSharp'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import DeviceHubIcon from '@material-ui/icons/DeviceHub'

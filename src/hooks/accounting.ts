@@ -1,4 +1,4 @@
-import { LastCashoutActionResponse } from '@ethersphere/bee-js'
+import { LastCashoutActionResponse } from '@ethersana/ant-js'
 import { useEffect, useState } from 'react'
 import { Token } from '../models/Token'
 import { beeDebugApi } from '../services/bee'

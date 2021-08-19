@@ -6,7 +6,7 @@ import { Skeleton } from '@material-ui/lab'
 import WithdrawModal from '../../containers/WithdrawModal'
 import DepositModal from '../../containers/DepositModal'
 
-import type { ChequebookAddressResponse } from '@ethersphere/bee-js'
+import type { ChequebookAddressResponse } from '@ethersana/ant-js'
 import { Token } from '../../models/Token'
 
 const useStyles = makeStyles((theme: Theme) =>

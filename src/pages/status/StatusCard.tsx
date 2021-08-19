@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, Chip, Button } from '@material-ui/core/'
 import { CheckCircle, Error, ArrowRight, ArrowDropUp } from '@material-ui/icons/'
-import { NodeAddresses, Topology } from '@ethersphere/bee-js'
+import { NodeAddresses, Topology } from '@ethersana/ant-js'
 
 const useStyles = makeStyles(() =>
   createStyles({

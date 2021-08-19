@@ -1,4 +1,4 @@
-import type { Topology } from '@ethersphere/bee-js'
+import type { Topology } from '@ethersana/ant-js'
 import { Grid } from '@material-ui/core/'
 import type { ReactElement } from 'react'
 import StatCard from './StatCard'

@@ -16,7 +16,7 @@ import {
 // import { Autorenew } from '@material-ui/icons'
 
 import { beeDebugApi } from '../../services/bee'
-import type { Peer } from '@ethersphere/bee-js'
+import type { Peer } from '@ethersana/ant-js'
 import Rocketpng from '../../assets/rocket.png'
 
 const RocketIcon = () => <img src={Rocketpng} width="24" style={{ border: 'none', outline: 0 }} />

@@ -1,4 +1,4 @@
-import { ChequebookAddressResponse } from '@ethersphere/bee-js'
+import { ChequebookAddressResponse } from '@ethersana/ant-js'
 import {
   ChequebookBalance,
   useApiChequebookAddress,
@@ -35,16 +35,10 @@ export const useStatusNodeVersion = (): StatusNodeVersionHook => {
 
   return {
     isLoading: isLoadingNodeHealth || isLoadingLatestBeeRelease,
-    // isOk: Boolean(
-    //   nodeHealth &&
-    //     semver.satisfies(nodeHealth.version, engines.bee, {
-    //       includePrerelease: true,
-    //     }),
-    // ),
     isOk: true,
     userVersion: nodeHealth?.version,
     latestVersion,
-    latestUrl: latestBeeRelease?.html_url || 'https://github.com/ethersphere/bee/releases/latest',
+    latestUrl: latestBeeRelease?.html_url || 'https://github.com/ethsana/sana/releases/latest',
     isLatestBeeVersion,
   }
 }
@@ -105,6 +99,7 @@ export interface Earns {
   pending: Token
   isWork: boolean
   totalEarns: Token
+  deposit?: Token | null
   isLoadingEarnsInfo: boolean
   isLockup: boolean
   error: string
@@ -126,6 +121,7 @@ export const useEarns = (): Earns => {
   }
 
   const reward = new Token(earnsInfo.reward)
+  const deposit = earnsInfo.deposit ? new Token(earnsInfo.deposit) : null
   const pending = new Token(earnsInfo.pending)
   const totalEarns = new Token(reward.toBigNumber.plus(pending.toBigNumber))
   const isLockup = Number(earnsInfo.expire) * 1000 - new Date().getTime() >= 0
@@ -133,6 +129,7 @@ export const useEarns = (): Earns => {
   return {
     reward,
     pending,
+    deposit,
     totalEarns,
     isWork: Boolean(earnsInfo.work),
     isLoadingEarnsInfo,
