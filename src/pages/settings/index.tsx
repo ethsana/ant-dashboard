@@ -448,26 +448,25 @@ function ManageNode() {
     {
       field: 'nodeName',
       headerName: 'Node Name',
-      width: 210,
+      width: 180,
       editable: true,
     },
     {
       field: 'authorizationCode',
       headerName: 'Authorization',
-      width: 210,
+      width: 180,
       editable: true,
     },
     {
       field: 'apiHost',
       headerName: 'Api Endpoint',
-      width: 290,
+      width: 260,
       editable: true,
     },
-
     {
       field: 'debugApiHost',
       headerName: 'Debug Api Endpoint',
-      width: 290,
+      width: 260,
       editable: true,
     },
     {
