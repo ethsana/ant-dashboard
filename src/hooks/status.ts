@@ -35,16 +35,10 @@ export const useStatusNodeVersion = (): StatusNodeVersionHook => {
 
   return {
     isLoading: isLoadingNodeHealth || isLoadingLatestBeeRelease,
-    // isOk: Boolean(
-    //   nodeHealth &&
-    //     semver.satisfies(nodeHealth.version, engines.bee, {
-    //       includePrerelease: true,
-    //     }),
-    // ),
     isOk: true,
     userVersion: nodeHealth?.version,
     latestVersion,
-    latestUrl: latestBeeRelease?.html_url || 'https://github.com/ethersphere/bee/releases/latest',
+    latestUrl: latestBeeRelease?.html_url || 'https://github.com/ethsana/sana/releases/tag/v0.1.1',
     isLatestBeeVersion,
   }
 }
