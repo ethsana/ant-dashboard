@@ -165,7 +165,7 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
           </Button>
           <div style={{ marginRight: '8px' }} />
           <Button onClick={clickCashout} variant="outlined" color="primary" disabled={Boolean(txHash)}>
-            withdraw
+            Confirm
             {pending && (
               <div
                 style={{
