@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState, useContext } from 'react'
+import React, { Fragment, useCallback, useState, useContext, useEffect, useMemo } from 'react'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -10,18 +10,58 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import axios from 'axios'
 import { useSnackbar } from 'notistack'
 import { Context as ApplicationContext, ApplicationInterface } from '../providers/Application'
+import moment from 'moment'
+import { useInterval } from 'ahooks'
 
 let lock = false
 
-export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
+const CountDowm = ({ expire }: { expire: number }) => {
+  const [interval, setInterval] = useState<number | null>(1000)
+  const [current, setTime] = useState<any>('0d 00h:00m:00s')
+
+  useEffect(() => {
+    if (isArrived) {
+      setInterval(null)
+    }
+  })
+
+  const deadLine = moment(expire)
+
+  const deadLineTime = deadLine.diff(moment())
+
+  let durationTime = moment.duration(deadLineTime)
+
+  const isArrived = deadLineTime < 0
+
+  useInterval(
+    () => {
+      const _h = durationTime.hours() > 9 ? durationTime.hours() : `0${durationTime.hours()}`
+      const _m = durationTime.minutes() > 9 ? durationTime.minutes() : `0${durationTime.minutes()}`
+      const _s = durationTime.seconds() > 9 ? durationTime.seconds() : `0${durationTime.seconds()}`
+      const arriveTime = `${durationTime.days()}d ${_h}h:${_m}m:${_s}s`
+
+      if (!isArrived) {
+        durationTime = moment.duration(deadLine.diff(moment()))
+        setTime(() => arriveTime) // make pretty
+      }
+    },
+    interval,
+    { immediate: true },
+  )
+
+  return <span style={{ color: '#32c48d' }}>{current}</span>
+}
+
+export default function CashoutEarnModal({ disabled, expire }: { disabled: boolean; expire: number }) {
   const [open, setOpen] = React.useState(false)
   const [txHash, setHash] = React.useState('')
-  const { enqueueSnackbar } = useSnackbar()
   const [pending, setPending] = useState(false)
   const [error, setError] = useState(false)
   const { nodeApi } = useContext<ApplicationInterface>(ApplicationContext)
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleClickOpen = () => {
+    setError(false)
     setOpen(true)
   }
 
@@ -35,10 +75,10 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
     }
     lock = true
     setPending(true)
+    setError(false)
 
-    const url = nodeApi.debugApiHost
     axios
-      .post(`${url}/mine/cashdeposit`, {}, { headers: { Authorization: nodeApi.authorizationCode } })
+      .post(`${nodeApi.debugApiHost}/mine/cashdeposit`, {}, { headers: { Authorization: nodeApi.authorizationCode } })
       .then(({ data }) => {
         setHash(data.hash)
         setError(data.hash ? false : true)
@@ -51,10 +91,21 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
         }
       })
       .finally(() => {
-        lock = false
-        setPending(false)
+        const t = setTimeout(() => {
+          clearTimeout(t)
+          lock = false
+          setPending(false)
+        }, 1000)
       })
-  }, [setHash, setOpen, enqueueSnackbar, setPending, lock, pending, disabled, txHash])
+  }, [setHash, setOpen, enqueueSnackbar, setPending, lock, pending, disabled, txHash, nodeApi])
+
+  const expiry = useMemo(() => {
+    if (expire === 0) return true
+    const deadLine = moment(expire)
+    const deadLineTime = deadLine.diff(moment())
+
+    return deadLineTime < 0 ? true : false
+  }, [expire])
 
   return (
     <div>
@@ -65,15 +116,28 @@ export default function CashoutEarnModal({ disabled }: { disabled: boolean }) {
         style={{ marginRight: '14px' }}
         onClick={handleClickOpen}
       >
-        Withdraw desposit
+        {expire === 0 ? 'Withdraw deposit' : expiry ? 'Withdraw deposit' : <CountDowm expire={expire} />}
       </Button>
       <Dialog open={open} aria-labelledby="draggable-dialog-title" fullWidth>
-        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          Withdraw Desposit
+        <DialogTitle id="draggable-dialog-title">
+          {expire === 0 && !disabled ? <span style={{ color: 'yellow' }}>Warning</span> : 'Widthdraw deposit'}
         </DialogTitle>
         <DialogContent>
-          {pending && <p>withdraw... </p>}
-          {!pending && !txHash && <p>You will not be able to continue mining after withdrawing desposit</p>}
+          {expire === 0 && !disabled && !error && !pending && !txHash && (
+            <>
+              <p style={{ fontSize: '16px', margin: '0' }}>
+                Proceed with caution! This action will prevent you from continuing to mine.
+              </p>
+              <p>
+                Tip: the token will be locked for 7 days and you will need to withdraw it again after expiry to take it
+                out.
+              </p>
+            </>
+          )}
+          {!disabled && expire > 0 && !error && !pending && !txHash && (
+            <p>The pledged token has been unfrozen and you can withdraw it.</p>
+          )}
+          {pending && <p>Waiting for the transaction to be completed</p>}
           {!pending && txHash && (
             <Fragment>
               <DialogContentText style={{ marginTop: '20px', overflowWrap: 'break-word' }}>

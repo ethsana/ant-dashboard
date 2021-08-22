@@ -60,18 +60,7 @@ export default function Status(): ReactElement {
         latestUrl={nodeVersion.latestUrl}
         nodeAddresses={ethereumConnection.nodeAddresses}
       />
-      {/* <NodeError isWork={mineStatus.isWork} isLoading={mineStatus.isLoadingEarnsInfo} /> */}
-      {mineStatus.error !== '404' && (
-        <IconCard
-          deposit={mineStatus.deposit}
-          error={mineStatus.error}
-          isLockup={mineStatus.isLockup}
-          isWork={mineStatus.isWork}
-          reward={mineStatus.reward}
-          pending={mineStatus.pending}
-          totalEarns={mineStatus.totalEarns}
-        />
-      )}
+      {mineStatus.error !== '404' && <IconCard {...mineStatus} />}
       {ethereumConnection.nodeAddresses && chequebook.chequebookAddress && (
         <EthereumAddressCard
           nodeAddresses={ethereumConnection.nodeAddresses}

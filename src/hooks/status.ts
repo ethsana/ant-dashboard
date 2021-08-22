@@ -102,6 +102,7 @@ export interface Earns {
   deposit?: Token | null
   isLoadingEarnsInfo: boolean
   isLockup: boolean
+  expire: number
   error: string
 }
 
@@ -117,20 +118,23 @@ export const useEarns = (): Earns => {
       isLoadingEarnsInfo,
       isLockup: false,
       error,
+      expire: 0,
     }
   }
 
   const reward = new Token(earnsInfo.reward)
-  const deposit = earnsInfo.deposit ? new Token(earnsInfo.deposit) : null
+  const deposit = earnsInfo.deposit ? new Token(earnsInfo.deposit) : new Token('0')
   const pending = new Token(earnsInfo.pending)
   const totalEarns = new Token(reward.toBigNumber.plus(pending.toBigNumber))
   const isLockup = Number(earnsInfo.expire) * 1000 - new Date().getTime() >= 0
+  const expire = Number(earnsInfo.expire) * 1000
 
   return {
     reward,
     pending,
     deposit,
     totalEarns,
+    expire,
     isWork: Boolean(earnsInfo.work),
     isLoadingEarnsInfo,
     isLockup: !Boolean(earnsInfo.work) || isLockup,
