@@ -123,7 +123,7 @@ export const useEarns = (): Earns => {
   }
 
   const reward = new Token(earnsInfo.reward)
-  const deposit = earnsInfo.deposit ? new Token(earnsInfo.deposit) : new Token('0')
+  const deposit = earnsInfo.deposit ? new Token(earnsInfo.deposit) : null
   const pending = new Token(earnsInfo.pending)
   const totalEarns = new Token(reward.toBigNumber.plus(pending.toBigNumber))
   const isLockup = Number(earnsInfo.expire) * 1000 - new Date().getTime() >= 0
