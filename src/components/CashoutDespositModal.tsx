@@ -116,11 +116,11 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
         style={{ marginRight: '14px' }}
         onClick={handleClickOpen}
       >
-        {expire === 0 ? 'Withdraw deposit' : expiry ? 'Withdraw deposit' : <CountDowm expire={expire} />}
+        {expire === 0 ? 'Unstake' : expiry ? 'Unstake' : <CountDowm expire={expire} />}
       </Button>
       <Dialog open={open} aria-labelledby="draggable-dialog-title" fullWidth>
         <DialogTitle id="draggable-dialog-title">
-          {expire === 0 && !disabled ? <span style={{ color: 'yellow' }}>Warning</span> : 'Widthdraw deposit'}
+          {expire === 0 && !disabled ? <span style={{ color: 'yellow' }}>Warning</span> : 'Unstake'}
         </DialogTitle>
         <DialogContent>
           {expire === 0 && !disabled && !error && !pending && !txHash && (
