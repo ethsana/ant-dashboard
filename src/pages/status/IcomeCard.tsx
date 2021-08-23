@@ -85,8 +85,24 @@ function IcomeCard({
   const unFrozenAmount = useMemo(() => {
     if (error) return 0
 
+    if (deposit) {
+      if (
+        deposit.toBigNumber.isZero() &&
+        reward.toBigNumber.isZero() &&
+        pending.toBigNumber.isZero() &&
+        !isWork &&
+        expire === 0
+      ) {
+        return 0
+      }
+    } else {
+      if (reward.toBigNumber.isZero() && pending.toBigNumber.isZero() && !isWork && expire === 0) {
+        return 0
+      }
+    }
+
     return depositAmount === 0 ? 50000 : 0
-  }, [depositAmount, error])
+  }, [depositAmount, error, expire, deposit, isWork, reward, pending])
 
   const expiry = useMemo(() => {
     if (expire === 0) return true

@@ -3,7 +3,9 @@ import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
+import IconButton from '@material-ui/core/IconButton'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import { Close } from '@material-ui/icons/'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import ClipboardCopy from './ClipboardCopy'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -122,6 +124,7 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
         <DialogTitle id="draggable-dialog-title">
           {expire === 0 && !disabled ? <span style={{ color: 'yellow' }}>Warning</span> : 'Unstake'}
         </DialogTitle>
+
         <DialogContent>
           {expire === 0 && !disabled && !error && !pending && !txHash && (
             <>
@@ -165,7 +168,7 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
           </Button>
           <div style={{ marginRight: '8px' }} />
           <Button onClick={clickCashout} variant="outlined" color="primary" disabled={Boolean(txHash)}>
-            withdraw
+            confirm
             {pending && (
               <div
                 style={{
