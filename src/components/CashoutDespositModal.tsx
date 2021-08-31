@@ -17,13 +17,14 @@ import { useInterval } from 'ahooks'
 
 let lock = false
 
-const CountDowm = ({ expire }: { expire: number }) => {
+const CountDowm = ({ expire, callback }: { expire: number; callback: () => void }) => {
   const [interval, setInterval] = useState<number | null>(1000)
   const [current, setTime] = useState<any>('0d 00h:00m:00s')
 
   useEffect(() => {
     if (isArrived) {
       setInterval(null)
+      callback()
     }
   })
 
@@ -54,13 +55,23 @@ const CountDowm = ({ expire }: { expire: number }) => {
   return <span style={{ color: '#32c48d' }}>{current}</span>
 }
 
-export default function CashoutEarnModal({ disabled, expire }: { disabled: boolean; expire: number }) {
+export default function CashoutEarnModal({
+  disabled,
+  expire,
+  isExpiry,
+}: {
+  disabled: boolean
+  expire: number
+  isExpiry: boolean
+}) {
   const [open, setOpen] = React.useState(false)
   const [txHash, setHash] = React.useState('')
   const [pending, setPending] = useState(false)
   const [error, setError] = useState(false)
   const { nodeApi } = useContext<ApplicationInterface>(ApplicationContext)
   const { enqueueSnackbar } = useSnackbar()
+
+  const [clearCountDown, setClearCountDown] = useState(isExpiry)
 
   const handleClickOpen = () => {
     setError(false)
@@ -75,6 +86,7 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
     if (lock || disabled || txHash) {
       return
     }
+
     lock = true
     setPending(true)
     setError(false)
@@ -99,15 +111,7 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
           setPending(false)
         }, 1000)
       })
-  }, [setHash, setOpen, enqueueSnackbar, setPending, lock, pending, disabled, txHash, nodeApi])
-
-  const expiry = useMemo(() => {
-    if (expire === 0) return true
-    const deadLine = moment(expire)
-    const deadLineTime = deadLine.diff(moment())
-
-    return deadLineTime < 0 ? true : false
-  }, [expire])
+  }, [setHash, setOpen, enqueueSnackbar, setPending, lock, pending, disabled, txHash, nodeApi, clearCountDown])
 
   return (
     <div>
@@ -118,13 +122,30 @@ export default function CashoutEarnModal({ disabled, expire }: { disabled: boole
         style={{ marginRight: '14px' }}
         onClick={handleClickOpen}
       >
-        {expire === 0 ? 'Unstake' : expiry ? 'Unstake' : <CountDowm expire={expire} />}
+        {expire === 0 ? (
+          'Unstake'
+        ) : isExpiry ? (
+          'Unstake'
+        ) : clearCountDown ? (
+          'Unstake'
+        ) : (
+          <CountDowm
+            expire={expire}
+            callback={() => {
+              setClearCountDown(true)
+            }}
+          />
+        )}
       </Button>
       <Dialog open={open} aria-labelledby="draggable-dialog-title" fullWidth>
-        <DialogTitle id="draggable-dialog-title">
-          {expire === 0 && !disabled ? <span style={{ color: 'yellow' }}>Warning</span> : 'Unstake'}
-        </DialogTitle>
-
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '24px' }}>
+          <DialogTitle id="draggable-dialog-title">
+            {expire === 0 && !disabled ? <span style={{ color: 'yellow' }}>Warning</span> : 'Unstake'}
+          </DialogTitle>
+          <IconButton style={{ marginRight: '-15px' }} onClick={handleClose}>
+            <Close />
+          </IconButton>
+        </div>
         <DialogContent>
           {expire === 0 && !disabled && !error && !pending && !txHash && (
             <>

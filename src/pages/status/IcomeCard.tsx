@@ -7,7 +7,6 @@ import CashoutEarnModal from '../../components/ CashoutEarnModal'
 import CashoutDespositModal from '../../components/CashoutDespositModal'
 import { Sync } from '@material-ui/icons/'
 import { Token } from '../../models/Token'
-import moment from 'moment'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     card: {
       padding: theme.spacing(2),
-      // height: 142,
     },
     span: {
       margin: '10px auto',
@@ -50,7 +48,6 @@ const PeerStatus = ({ isWork }: { isWork: boolean }) => (
 )
 
 interface IncomeProps {
-  isLockup: boolean
   reward: Token
   pending: Token
   isWork: boolean
@@ -60,17 +57,10 @@ interface IncomeProps {
   error: string
 }
 
-function IcomeCard({
-  error,
-  isLockup,
-  isWork,
-  expire,
-  pending,
-  reward,
-  totalEarns,
-  deposit,
-}: IncomeProps): ReactElement {
+function IcomeCard({ error, isWork, expire, pending, reward, totalEarns, deposit }: IncomeProps): ReactElement {
   const classes = useStyles()
+
+  const isExpiry = Number(expire - new Date().getTime()) <= 0
 
   const depositAmount = useMemo(() => {
     if (error) return 0
@@ -79,38 +69,38 @@ function IcomeCard({
       return deposit.toBigNumber.isZero() ? 0 : deposit.toFixedDecimal()
     }
 
-    return expire === 0 ? (isWork ? 50000 : 0) : 50000
-  }, [expire, deposit, isWork, error])
+    if (expire === 0) {
+      return isWork ? 50000 : 0
+    } else {
+      return isExpiry ? 0 : 50000
+    }
+  }, [expire, deposit, isWork, error, isExpiry])
 
   const unFrozenAmount = useMemo(() => {
     if (error) return 0
 
+    // if (deposit) {
+    //   if (
+    //     deposit.toBigNumber.isZero() &&
+    //     reward.toBigNumber.isZero() &&
+    //     pending.toBigNumber.isZero() &&
+    //     !isWork &&
+    //     expire === 0
+    //   ) {
+    //     return 0
+    //   }
+    // } else {
+    //   if (reward.toBigNumber.isZero() && pending.toBigNumber.isZero() && !isWork && expire === 0) {
+    //     return 0
+    //   }
+    // }
+
     if (deposit) {
-      if (
-        deposit.toBigNumber.isZero() &&
-        reward.toBigNumber.isZero() &&
-        pending.toBigNumber.isZero() &&
-        !isWork &&
-        expire === 0
-      ) {
-        return 0
-      }
-    } else {
-      if (reward.toBigNumber.isZero() && pending.toBigNumber.isZero() && !isWork && expire === 0) {
-        return 0
-      }
+      return depositAmount === 0 ? depositAmount : 0
     }
 
     return depositAmount === 0 ? 50000 : 0
   }, [depositAmount, error, expire, deposit, isWork, reward, pending])
-
-  const expiry = useMemo(() => {
-    if (expire === 0) return true
-    const deadLine = moment(expire)
-    const deadLineTime = deadLine.diff(moment())
-
-    return deadLineTime < 0 ? true : false
-  }, [expire])
 
   const lockUndepositButton = useMemo(() => {
     if (error) return true
@@ -120,17 +110,15 @@ function IcomeCard({
 
       if (expire === 0) return false
 
-      return !expiry
+      return !isExpiry
     }
 
     if (expire === 0) {
-      if (isWork) return false
-
-      return true
+      return isWork ? false : true
     }
 
-    return !expiry
-  }, [expire, deposit, isWork, error, expiry])
+    return !isExpiry
+  }, [expire, deposit, isWork, error, isExpiry])
 
   return (
     <div className={classes.root}>
@@ -193,7 +181,7 @@ function IcomeCard({
             </div>
             <div className={classes.span} style={{ display: 'flex', marginTop: '20px' }}>
               <CashoutEarnModal disabled={Boolean(pending.toBigNumber.isZero())} />
-              <CashoutDespositModal disabled={lockUndepositButton} expire={expire} />
+              <CashoutDespositModal disabled={lockUndepositButton} expire={expire} isExpiry={isExpiry} />
             </div>
           </Card>
         </Grid>
