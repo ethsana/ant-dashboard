@@ -73,6 +73,10 @@ export default function CashoutEarnModal({
 
   const [clearCountDown, setClearCountDown] = useState(isExpiry)
 
+  useEffect(() => {
+    setClearCountDown(isExpiry)
+  }, [isExpiry])
+
   const handleClickOpen = () => {
     setError(false)
     setOpen(true)
