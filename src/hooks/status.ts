@@ -103,6 +103,7 @@ export interface Earns {
   isLoadingEarnsInfo: boolean
   expire: number
   error: string
+  freeze: boolean
 }
 
 export const useEarns = (): Earns => {
@@ -117,6 +118,7 @@ export const useEarns = (): Earns => {
       isLoadingEarnsInfo,
       error,
       expire: 0,
+      freeze: false,
     }
   }
 
@@ -132,6 +134,7 @@ export const useEarns = (): Earns => {
     deposit,
     totalEarns,
     expire,
+    freeze: earnsInfo?.freeze ?? false,
     isWork: Boolean(earnsInfo.work),
     isLoadingEarnsInfo,
     error,

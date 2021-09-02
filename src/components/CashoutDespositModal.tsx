@@ -103,9 +103,9 @@ export default function CashoutEarnModal({
       })
       .catch(error => {
         if (error.response) {
-          enqueueSnackbar(`Withdraw: ${error.response.data.message}`, { variant: 'error' })
+          enqueueSnackbar(`Withdraw: ${error.response.data.message}`, { variant: 'error', autoHideDuration: 2000 })
         } else {
-          enqueueSnackbar(`Withdraw: ${error.toString()}`, { variant: 'error' })
+          enqueueSnackbar(`Withdraw: ${error.toString()}`, { variant: 'error', autoHideDuration: 2000 })
         }
       })
       .finally(() => {
@@ -189,28 +189,30 @@ export default function CashoutEarnModal({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
-            cancel
+            {txHash ? 'close' : 'cancel'}
           </Button>
           <div style={{ marginRight: '8px' }} />
-          <Button onClick={clickCashout} variant="outlined" color="primary" disabled={Boolean(txHash)}>
-            Confirm
-            {pending && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <CircularProgress style={{ width: '24px', height: '24px' }} />
-              </div>
-            )}
-          </Button>
+          {!txHash && (
+            <Button onClick={clickCashout} variant="outlined" color="primary" disabled={Boolean(txHash)}>
+              Confirm
+              {pending && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <CircularProgress style={{ width: '24px', height: '24px' }} />
+                </div>
+              )}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

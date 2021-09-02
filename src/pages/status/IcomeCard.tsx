@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card'
 import { Button } from '@material-ui/core'
 import CashoutEarnModal from '../../components/ CashoutEarnModal'
 import CashoutDespositModal from '../../components/CashoutDespositModal'
+import ActivateDeposit from '../../components/ActivateDepositModal'
 import { Sync } from '@material-ui/icons/'
 import { Token } from '../../models/Token'
 
@@ -54,10 +55,11 @@ interface IncomeProps {
   totalEarns: Token
   expire: number
   deposit?: Token | null
+  freeze?: boolean | undefined
   error: string
 }
 
-function IcomeCard({ error, isWork, expire, pending, reward, totalEarns, deposit }: IncomeProps): ReactElement {
+function IcomeCard({ error, isWork, expire, pending, reward, freeze, totalEarns, deposit }: IncomeProps): ReactElement {
   const classes = useStyles()
 
   const isExpiry = Number(expire - new Date().getTime()) <= 0
@@ -132,8 +134,8 @@ function IcomeCard({ error, isWork, expire, pending, reward, totalEarns, deposit
             <div className={classes.span}>
               <span className={classes.label}>Miner Node Status</span>
               <span className={classes.val}>
-                <PeerStatus isWork={isWork} />
-                {error ? ' The node is wrong, refresh to check' : isWork ? 'working' : 'unwork'}
+                {!freeze && <PeerStatus isWork={isWork} />}
+                {error ? ' The node is wrong, refresh to check' : isWork ? 'working' : freeze ? '' : 'unwork'}
                 {error && (
                   <Button
                     variant="outlined"
@@ -145,6 +147,7 @@ function IcomeCard({ error, isWork, expire, pending, reward, totalEarns, deposit
                     <span>Refresh Checks</span>
                   </Button>
                 )}
+                {freeze && <ActivateDeposit />}
               </span>
             </div>
           </Card>

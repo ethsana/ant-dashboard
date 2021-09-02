@@ -439,6 +439,7 @@ export interface EarningsInformation {
   pending: string
   deposit?: string
   expire: string
+  freeze?: boolean
   code?: number | string | null
   message?: string | undefined | null
 }
@@ -481,7 +482,7 @@ export const useEarnsInfo = () => {
     }
 
     fetch()
-    const t = setInterval(() => fetch(), 10000)
+    const t = setInterval(() => fetch(), 8000)
 
     return () => {
       clearInterval(t)
