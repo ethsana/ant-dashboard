@@ -64,7 +64,7 @@ export function Provider({ children }: Props): ReactElement {
 
       setStamps(stamps.map(enrichStamp))
       setLastUpdate(Date.now())
-    } catch (e) {
+    } catch (e: any) {
       setError(e)
     } finally {
       setIsLoading(false)

@@ -113,7 +113,7 @@ export default function Settings(): ReactElement {
 
   return (
     <div>
-      <Container>
+      <div style={{ margin: '0 10px' }}>
         <Typography variant="h4" gutterBottom>
           Settings Node API
         </Typography>
@@ -181,7 +181,7 @@ export default function Settings(): ReactElement {
         <div style={{ height: '20px' }} />
         {tab === 0 && <CurrentNode />}
         {tab === 1 && <ManageNode />}
-      </Container>
+      </div>
       <Snackbar
         open={Boolean(showAlert)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

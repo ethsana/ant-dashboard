@@ -38,6 +38,9 @@ export const beeApi = {
     uploadFile(postageBatchId: Address, file: File): Promise<Reference> {
       return beeJSClient().uploadFile(postageBatchId, file)
     },
+    uploadFilePkg(postageBatchId: Address, file: File): Promise<Reference | null> {
+      return beeJSClient().uploadFilePkg(postageBatchId, file)
+    },
     downloadFile(hash: string | Reference): Promise<FileData<Data>> {
       return beeJSClient().downloadFile(hash)
     },

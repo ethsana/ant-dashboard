@@ -1,12 +1,11 @@
-import { useState, useEffect, ReactElement, Fragment } from 'react'
+import { useState, ReactElement, Fragment } from 'react'
 import ErrorBoundary from '../components/ErrorBoundary'
 import AlertVersion from '../components/AlertVersion'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 
 import SideBar from '../components/SideBar'
 import NavBar from '../components/NavBar'
-// import NavBar from '../components/NavBar'
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { AppBar } from '@material-ui/core'
 import { useApiHealth, useDebugApiHealth } from '../hooks/apiHooks'
 import { RouteComponentProps } from 'react-router'
 const useStyles = makeStyles((theme: Theme) =>

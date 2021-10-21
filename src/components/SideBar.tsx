@@ -12,8 +12,7 @@ import {
   Drawer,
   Link as MUILink,
 } from '@material-ui/core'
-import { OpenInNewSharp } from '@material-ui/icons'
-import { Activity, FileText, DollarSign, Share2, Settings, Layers, Folder } from 'react-feather'
+import { Activity } from 'react-feather'
 
 import { Health } from '@ethersana/ant-js'
 import PublishSharpIcon from '@material-ui/icons/PublishSharp'
@@ -22,6 +21,7 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub'
 import SettingsIcon from '@material-ui/icons/Settings'
 import BallotIcon from '@material-ui/icons/Ballot'
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile'
+import AppsIcon from '@material-ui/icons/Apps'
 
 const drawerWidth = 240
 
@@ -55,6 +55,12 @@ const navBarItems = [
     id: 'peers',
     path: '/peers/',
     icon: DeviceHubIcon,
+  },
+  {
+    label: 'Application',
+    id: 'application',
+    path: '/apps/',
+    icon: AppsIcon,
   },
   {
     label: 'Settings',

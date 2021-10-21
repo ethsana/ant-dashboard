@@ -13,17 +13,17 @@ import Peers from '../pages/peers'
 import Accounting from '../pages/accounting'
 import Settings from '../pages/settings'
 import Stamps from '../pages/stamps'
-// import ConfigNodes from '../pages/confignodes'
+import AppMarkplace from '../pages/apps'
 
 const BaseRouter = (): ReactElement => (
   <Switch>
-    {/* <Route exact path="/" component={ConfigNodes}></Route> */}
     <AppRoute exact path="/" layout={Dashboard} component={Status} />
     <AppRoute exact path="/files/" layout={Dashboard} component={Files} />
     <AppRoute exact path="/peers/" layout={Dashboard} component={Peers} />
     <AppRoute exact path="/accounting/" layout={Dashboard} component={Accounting} />
     <AppRoute exact path="/settings/" layout={Dashboard} component={Settings} />
     <AppRoute exact path="/stamps/" layout={Dashboard} component={Stamps} />
+    <AppRoute exact path="/apps/" layout={Dashboard} component={AppMarkplace} />
   </Switch>
 )
 
